@@ -15,7 +15,7 @@
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
 
-    --color-background: var(--background);
+    --color-background: linear-gradient(90deg, #3cacb6 0%, #8ccead 90%);
     --color-foreground: var(--foreground);
 
     --color-card: var(--card);
@@ -24,7 +24,7 @@
     --color-popover: var(--popover);
     --color-popover-foreground: var(--popover-foreground);
 
-    --color-primary: var(--primary);
+    --color-primary: #3cbc9b;
     --color-primary-foreground: var(--primary-foreground);
 
     --color-secondary: var(--secondary);
