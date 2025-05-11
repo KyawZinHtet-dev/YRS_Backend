@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminUserController;
 
 
 require __DIR__ . '/settings.php';
@@ -18,4 +19,6 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
     Route::get('users', function () {
         return Inertia::render('users');
     });
+
+    Route::resource('admin-users', AdminUserController::class);
 });
