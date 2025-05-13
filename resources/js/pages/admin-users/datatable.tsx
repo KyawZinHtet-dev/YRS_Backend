@@ -21,9 +21,13 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { SearchIcon, Settings2, XIcon } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { DialogClose } from '@radix-ui/react-dialog';
+import { SearchIcon, Settings2, UserPlus, XIcon } from 'lucide-react';
+import AdminUsersForm from './admin-users-form';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -63,9 +67,43 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
     return (
         <Card>
-            <CardHeader>
-                <CardTitle>Admin User Table</CardTitle>
-                <CardDescription>Manage admin users here.</CardDescription>
+            <CardHeader className="flex flex-row items-center justify-between">
+                <div className="flex flex-col gap-2">
+                    <CardTitle>Admin User Table</CardTitle>
+                    <CardDescription>Manage admin users here.</CardDescription>
+                </div>
+                <div>
+                    <Dialog>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <DialogTrigger asChild>
+                                    <TooltipTrigger asChild>
+                                        <Button variant="outline">
+                                            <UserPlus />
+                                        </Button>
+                                    </TooltipTrigger>
+                                </DialogTrigger>
+                                <TooltipContent>
+                                    <p>Create admin user</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Create Admin User</DialogTitle>
+                                <DialogDescription>Create a new admin user here. Click create when you're done.</DialogDescription>
+                            </DialogHeader>
+                            <AdminUsersForm />
+                            <DialogFooter>
+                                <DialogClose asChild>
+                                    <Button className="w-full" type="button" variant="secondary">
+                                        Cancle
+                                    </Button>
+                                </DialogClose>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                </div>
             </CardHeader>
             <CardContent>
                 <div className="flex items-center justify-between gap-2 py-4">

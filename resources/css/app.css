@@ -16,7 +16,7 @@
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
 
-    --color-background: linear-gradient(90deg, #3cacb6 0%, #8ccead 90%);
+    --color-background: var(--background);
     --color-foreground: var(--foreground);
 
     --color-card: var(--card);

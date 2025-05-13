@@ -20,5 +20,5 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
         return Inertia::render('users');
     });
 
-    Route::resource('admin-users', AdminUserController::class);
+    Route::resource('admin-users', AdminUserController::class)->only(['index', 'store', 'update', 'destroy']);
 });

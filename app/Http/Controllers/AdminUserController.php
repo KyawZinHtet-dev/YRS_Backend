@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AdminUser\AdminUserStoreRequest;
+use Illuminate\Http\RedirectResponse;
 
 class AdminUserController extends Controller
 {
@@ -17,35 +20,21 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AdminUserStoreRequest $request): RedirectResponse
     {
-        //
-    }
+        try {
+            $admin_users = new AdminUser();
+            $admin_users->name = $request->name;
+            $admin_users->email = $request->email;
+            $admin_users->password = Hash::make($request->password);
+            $admin_users->save();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+            return back()->with('response', ['status' => 'success', 'message' => 'Admin user created successfully']);
+        } catch (\Exception $e) {
+            return back()->with('response', ['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 
     /**

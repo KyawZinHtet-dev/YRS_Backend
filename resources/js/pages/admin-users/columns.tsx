@@ -5,14 +5,7 @@ import { MoreHorizontal } from 'lucide-react';
 
 import { DataTableColumnHeader } from '@/components/datatable/column-header';
 import { Button } from '@/components/ui/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -35,10 +28,10 @@ function ActionDroupdownMenu() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuItem>Copy payment ID</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>View customer</DropdownMenuItem>
-                <DropdownMenuItem>View payment details</DropdownMenuItem>
+                <DropdownMenuItem className="text-orange-800 focus:bg-orange-800/10 focus:text-orange-800 dark:focus:bg-orange-800/20">
+                    Edit admin user
+                </DropdownMenuItem>
+                <DropdownMenuItem variant="destructive">Delete admin user</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );
