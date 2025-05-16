@@ -4,8 +4,22 @@ import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 
 import { DataTableColumnHeader } from '@/components/datatable/column-header';
-import { Button } from '@/components/ui/button';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { cn } from '@/lib/utils';
+import { useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -17,23 +31,51 @@ export type AdminUsers = {
     updated_at: string;
 };
 
-function ActionDroupdownMenu() {
+function ActionDroupdownMenu({ data }: { data: AdminUsers }) {
+    const { delete: destroy, processing } = useForm();
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                    <span className="sr-only">Open menu</span>
-                    <MoreHorizontal className="h-4 w-4" />
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuItem className="text-orange-800 focus:bg-orange-800/10 focus:text-orange-800 dark:focus:bg-orange-800/20">
-                    Edit admin user
-                </DropdownMenuItem>
-                <DropdownMenuItem variant="destructive">Delete admin user</DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <AlertDialog>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="h-8 w-8 p-0">
+                        <span className="sr-only">Open menu</span>
+                        <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuItem className="text-orange-800 focus:bg-orange-800/10 focus:text-orange-800 dark:focus:bg-orange-800/20">
+                        Edit admin user
+                    </DropdownMenuItem>
+                    {/* <DropdownMenuItem variant="destructive">Delete admin user</DropdownMenuItem> */}
+
+                    <AlertDialogTrigger>
+                        <DropdownMenuItem variant="destructive">Delete admin user</DropdownMenuItem>
+                    </AlertDialogTrigger>
+                </DropdownMenuContent>
+            </DropdownMenu>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        This action cannot be undone. This will permanently delete this account and remove data from our servers.
+                        <br />
+                        <span className="mt-2 block font-bold">
+                            Name: <span className="font-normal">{data.name}</span>
+                        </span>
+                        <span className="mt-1 block font-semibold">
+                            Email: <span className="font-normal">{data.email}</span>
+                        </span>
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => destroy(`admin-users/${data.id}`)} className={cn(buttonVariants({ variant: 'destructive' }))}>
+                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}Delete
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     );
 }
 
@@ -105,10 +147,10 @@ export const columns: ColumnDef<AdminUsers>[] = [
     {
         accessorKey: 'actions',
         header: () => <div className="text-center">Actions</div>,
-        cell: () => {
+        cell: ({ row }) => {
             return (
                 <div className="text-center">
-                    <ActionDroupdownMenu />
+                    <ActionDroupdownMenu data={row.original} />
                 </div>
             );
         },

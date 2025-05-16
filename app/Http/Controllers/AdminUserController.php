@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\AdminUser\AdminUserStoreRequest;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\AdminUser\AdminUserStoreRequest;
 
 class AdminUserController extends Controller
 {
@@ -50,6 +51,12 @@ class AdminUserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $admin_users = AdminUser::find($id);
+            $admin_users->delete();
+            return back()->with('response', ['status' => 'success', 'message' => 'Admin user deleted successfully']);
+         } catch (\Exception $e) {
+            return back()->with('response', ['status' => 'error', 'message' => $e->getMessage()]);
+         }  
     }
 }
