@@ -93,11 +93,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                 <DialogTitle>Create Admin User</DialogTitle>
                                 <DialogDescription>Create a new admin user here. Click create when you're done.</DialogDescription>
                             </DialogHeader>
-                            <AdminUsersForm />
+                            <AdminUsersForm mode="create" />
                             <DialogFooter>
                                 <DialogClose asChild>
-                                    <Button className="w-full" type="button" variant="secondary">
-                                        Cancle
+                                    <Button className="w-full" type="button" variant="outline">
+                                        Cancel
                                     </Button>
                                 </DialogClose>
                             </DialogFooter>

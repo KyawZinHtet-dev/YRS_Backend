@@ -6,27 +6,40 @@ import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
-type AdminUserForm = {
+interface AdminUserForm {
     name: string;
     email: string;
     password: string;
     password_confirmation: string;
+}
+
+type AdminUserFormProps = {
+    admin_user?: { id: number; name: string; email: string };
+    mode: 'create' | 'edit';
+    setDialogOpen?: (open: boolean) => void;
 };
 
-const AdminUsersForm = () => {
-    const { data, setData, post, reset, errors, processing } = useForm<Required<AdminUserForm>>({
-        name: '',
-        email: '',
+const AdminUsersForm = ({ admin_user, mode, setDialogOpen }: AdminUserFormProps) => {
+    const { data, setData, post, put, reset, errors, processing } = useForm<Required<AdminUserForm>>({
+        name: admin_user?.name ?? '',
+        email: admin_user?.email ?? '',
         password: '',
         password_confirmation: '',
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post('admin-users', {
-            onSuccess: () => reset(),
-            onError: () => reset('password', 'password_confirmation'),
-        });
+        if (mode === 'edit') {
+            put(route('admin-users.update', admin_user?.id), {
+                onSuccess: () => setDialogOpen && setDialogOpen(false),
+                onError: () => reset('password', 'password_confirmation'),
+            });
+        } else {
+            post(route('admin-users.store'), {
+                onSuccess: () => reset(),
+                onError: () => reset('password', 'password_confirmation'),
+            });
+        }
     };
 
     return (
@@ -66,39 +79,40 @@ const AdminUsersForm = () => {
                 </div>
 
                 <div className="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">{mode === 'create' ? 'Password' : 'New password'}</Label>
                     <Input
                         id="password"
                         type="password"
-                        required
+                        required={mode === 'create'}
                         tabIndex={3}
                         autoComplete="new-password"
                         value={data.password}
                         onChange={(e) => setData('password', e.target.value)}
                         disabled={processing}
-                        placeholder="Password"
+                        placeholder={mode === 'create' ? 'Password' : 'New password'}
                     />
                     <InputError message={errors.password} />
                 </div>
 
                 <div className="grid gap-2">
-                    <Label htmlFor="password_confirmation">Confirm password</Label>
+                    <Label htmlFor="password_confirmation">{mode === 'create' ? 'Confirm password' : 'Confirm new password'}</Label>
                     <Input
                         id="password_confirmation"
                         type="password"
-                        required
+                        required={mode === 'create'}
                         tabIndex={4}
                         autoComplete="new-password"
                         value={data.password_confirmation}
                         onChange={(e) => setData('password_confirmation', e.target.value)}
                         disabled={processing}
-                        placeholder="Confirm password"
+                        placeholder={mode === 'create' ? 'Confirm password' : 'Confirm new password'}
                     />
                     <InputError message={errors.password_confirmation} />
                 </div>
                 <div className="flex items-center justify-end gap-4">
                     <Button className="w-full" disabled={processing}>
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}Create
+                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                        {mode === 'create' ? 'Create' : 'Update'}
                     </Button>
                 </div>
             </form>
