@@ -2,36 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdminUser;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\RedirectResponse;
+
+
 use App\Http\Requests\AdminUser\AdminUserUpdateRequest;
 use App\Http\Requests\AdminUser\AdminUserStoreRequest;
+use App\Repositories\AdminUserRepository;
 
 class AdminUserController extends Controller
 {
+    protected $adminUserRepository;
+    public function __construct(AdminUserRepository $adminUserRepository)
+    {
+        $this->adminUserRepository = $adminUserRepository;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $admin_users = AdminUser::orderBy('updated_at', 'desc')->get();
+        $admin_users = $this->adminUserRepository->all();
         return inertia('admin-users/index', ['admin_users' => $admin_users]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminUserStoreRequest $request): RedirectResponse
+    public function store(AdminUserStoreRequest $request)
     {
         try {
-            $admin_user = new AdminUser();
-            $admin_user->name = $request->name;
-            $admin_user->email = $request->email;
-            $admin_user->password = Hash::make($request->password);
-            $admin_user->save();
+            $this->adminUserRepository->create($request->all());
 
             return back()->with('response', ['status' => 'success', 'message' => 'Admin user created successfully']);
         } catch (\Exception $e) {
@@ -45,12 +44,7 @@ class AdminUserController extends Controller
     public function update(AdminUserUpdateRequest $request, string $id)
     {
         try {
-            $admin_user = AdminUser::find($id);
-            $admin_user->name = $request->name;
-            $admin_user->email = $request->email;
-            $admin_user->password = $request->password ? Hash::make($request->password) : $admin_user->password;
-            $admin_user->updated_at = now();
-            $admin_user->update();
+            $this->adminUserRepository->update($id, $request->all());
             return back()->with('response', ['status' => 'success', 'message' => 'Admin user updated successfully']);
         } catch (\Exception $e) {
             return back()->with('response', ['status' => 'error', 'message' => $e->getMessage()]);
@@ -63,8 +57,7 @@ class AdminUserController extends Controller
     public function destroy(string $id)
     {
         try {
-            $admin_user = AdminUser::find($id);
-            $admin_user->delete();
+            $this->adminUserRepository->delete($id);
             return back()->with('response', ['status' => 'success', 'message' => 'Admin user deleted successfully']);
         } catch (\Exception $e) {
             return back()->with('response', ['status' => 'error', 'message' => $e->getMessage()]);
