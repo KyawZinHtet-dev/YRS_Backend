@@ -19,7 +19,7 @@ type AdminUserFormProps = {
     setDialogOpen?: (open: boolean) => void;
 };
 
-const AdminUsersForm = ({ admin_user, mode, setDialogOpen }: AdminUserFormProps) => {
+const AdminUserForm = ({ admin_user, mode, setDialogOpen }: AdminUserFormProps) => {
     const { data, setData, post, put, reset, errors, processing } = useForm<Required<AdminUserForm>>({
         name: admin_user?.name ?? '',
         email: admin_user?.email ?? '',
@@ -120,4 +120,4 @@ const AdminUsersForm = ({ admin_user, mode, setDialogOpen }: AdminUserFormProps)
     );
 };
 
-export default AdminUsersForm;
+export default AdminUserForm;

@@ -32,7 +32,7 @@ import { cn } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
-import UsersForm from './users-form';
+import UserForm from './user-form';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -94,10 +94,10 @@ function ActionDroupdownMenu({ data }: { data: Users }) {
             </AlertDialog>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Edit user</DialogTitle>
+                    <DialogTitle>Edit User</DialogTitle>
                     <DialogDescription>Make changes user here. Click update when you're done.</DialogDescription>
                 </DialogHeader>
-                <UsersForm user={data} mode="edit" setDialogOpen={setDialogOpen} />
+                <UserForm user={data} mode="edit" setDialogOpen={setDialogOpen} />
                 <DialogFooter>
                     <DialogClose asChild>
                         <Button className="w-full" variant={'outline'}>

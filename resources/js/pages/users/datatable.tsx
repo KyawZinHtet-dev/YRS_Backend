@@ -27,7 +27,7 @@ import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { SearchIcon, Settings2, UserPlus, XIcon } from 'lucide-react';
-import UsersForm from './users-form';
+import UserForm from './user-form';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -93,7 +93,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                 <DialogTitle>Create User</DialogTitle>
                                 <DialogDescription>Create a new user here. Click create when you're done.</DialogDescription>
                             </DialogHeader>
-                            <UsersForm mode="create" />
+                            <UserForm mode="create" />
                             <DialogFooter>
                                 <DialogClose asChild>
                                     <Button className="w-full" type="button" variant="outline">

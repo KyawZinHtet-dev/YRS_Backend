@@ -32,11 +32,11 @@ import { cn } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
-import AdminUserForm from './admin-user-form';
+import TicketInspectorForm from './ticket-inspector-form';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type AdminUsers = {
+export type TicketInspector = {
     id: number;
     name: string;
     email: string;
@@ -45,7 +45,7 @@ export type AdminUsers = {
     updated_at: string;
 };
 
-function ActionDroupdownMenu({ data }: { data: AdminUsers }) {
+function ActionDroupdownMenu({ data }: { data: TicketInspector }) {
     const { delete: destroy, processing } = useForm();
     const [dialogOpen, setDialogOpen] = useState(false);
     return (
@@ -62,11 +62,11 @@ function ActionDroupdownMenu({ data }: { data: AdminUsers }) {
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DialogTrigger className="block w-full">
                             <DropdownMenuItem className="text-amber-700 focus:bg-amber-700/10 focus:text-amber-700 dark:focus:bg-amber-700/20">
-                                Edit admin user
+                                Edit ticket inspector
                             </DropdownMenuItem>
                         </DialogTrigger>
                         <AlertDialogTrigger className="block w-full">
-                            <DropdownMenuItem variant="destructive">Delete admin user</DropdownMenuItem>
+                            <DropdownMenuItem variant="destructive">Delete ticket inspector</DropdownMenuItem>
                         </AlertDialogTrigger>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -87,7 +87,7 @@ function ActionDroupdownMenu({ data }: { data: AdminUsers }) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => destroy(`admin-users/${data.id}`)}
+                            onClick={() => destroy(`ticket-inspectors/${data.id}`)}
                             className={cn(buttonVariants({ variant: 'destructive' }))}
                         >
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}Delete
@@ -97,10 +97,10 @@ function ActionDroupdownMenu({ data }: { data: AdminUsers }) {
             </AlertDialog>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Edit Admin User</DialogTitle>
-                    <DialogDescription>Make changes admin user here. Click update when you're done.</DialogDescription>
+                    <DialogTitle>Edit Ticket Inspector</DialogTitle>
+                    <DialogDescription>Make changes ticket inspector here. Click update when you're done.</DialogDescription>
                 </DialogHeader>
-                <AdminUserForm admin_user={data} mode="edit" setDialogOpen={setDialogOpen} />
+                <TicketInspectorForm ticket_inspector={data} mode="edit" setDialogOpen={setDialogOpen} />
                 <DialogFooter>
                     <DialogClose asChild>
                         <Button className="w-full" variant={'outline'}>
@@ -113,7 +113,7 @@ function ActionDroupdownMenu({ data }: { data: AdminUsers }) {
     );
 }
 
-export const columns: ColumnDef<AdminUsers>[] = [
+export const columns: ColumnDef<TicketInspector>[] = [
     {
         accessorKey: 'no',
         header: () => <div className="text-center">No.</div>,

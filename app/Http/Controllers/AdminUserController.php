@@ -58,7 +58,7 @@ class AdminUserController extends Controller
     {
         try {
             $this->adminUserRepository->delete($id);
-            return back()->with('response', ['status' => 'success', 'message' => 'Admin user deleted successfully']);
+            return back()->with('response', ['status' => 'success', 'message' => 'Admin User deleted successfully']);
         } catch (\Exception $e) {
             return back()->with('response', ['status' => 'error', 'message' => $e->getMessage()]);
         }

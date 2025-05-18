@@ -27,7 +27,7 @@ import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { SearchIcon, Settings2, UserPlus, XIcon } from 'lucide-react';
-import AdminUserForm from './admin-user-form';
+import TicketInspectorForm from './ticket-inspector-form';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -69,8 +69,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2">
-                    <CardTitle>Admin User Table</CardTitle>
-                    <CardDescription>Manage admin users here.</CardDescription>
+                    <CardTitle>Ticket Inspector Table</CardTitle>
+                    <CardDescription>Manage ticket inspectors here.</CardDescription>
                 </div>
                 <div>
                     <Dialog>
@@ -84,16 +84,16 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                     </TooltipTrigger>
                                 </DialogTrigger>
                                 <TooltipContent>
-                                    <p>Create admin user</p>
+                                    <p>Create Ticket Inspector</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
                         <DialogContent>
                             <DialogHeader>
-                                <DialogTitle>Create Admin User</DialogTitle>
-                                <DialogDescription>Create a new admin user here. Click create when you're done.</DialogDescription>
+                                <DialogTitle>Create Ticket Inspector</DialogTitle>
+                                <DialogDescription>Create a new ticket inspector here. Click create when you're done.</DialogDescription>
                             </DialogHeader>
-                            <AdminUserForm mode="create" />
+                            <TicketInspectorForm mode="create" />
                             <DialogFooter>
                                 <DialogClose asChild>
                                     <Button className="w-full" type="button" variant="outline">

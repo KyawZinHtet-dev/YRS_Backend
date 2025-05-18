@@ -19,7 +19,7 @@ type UserFormProps = {
     setDialogOpen?: (open: boolean) => void;
 };
 
-const UsersForm = ({ user, mode, setDialogOpen }: UserFormProps) => {
+const UserForm = ({ user, mode, setDialogOpen }: UserFormProps) => {
     const { data, setData, post, put, reset, errors, processing } = useForm<Required<UserForm>>({
         name: user?.name ?? '',
         email: user?.email ?? '',
@@ -120,4 +120,4 @@ const UsersForm = ({ user, mode, setDialogOpen }: UserFormProps) => {
     );
 };
 
-export default UsersForm;
+export default UserForm;
