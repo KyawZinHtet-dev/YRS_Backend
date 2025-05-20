@@ -7,13 +7,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Repositories\UserRepository;
+use App\Repositories\WalletRepository;
 
 class UserController extends Controller
 {
     protected $userRepository;
-    public function __construct(UserRepository $userRepository)
+    protected $walletRepository;
+    public function __construct(UserRepository $userRepository, WalletRepository $walletRepository)
     {
         $this->userRepository = $userRepository;
+        $this->walletRepository = $walletRepository;
     }
     /**
      * Display a listing of the resource.
@@ -30,7 +33,8 @@ class UserController extends Controller
     public function store(UserStoreRequest $request)
     {
         try {
-            $this->userRepository->create($request->all());
+            $user = $this->userRepository->create($request->all());
+            $this->walletRepository->firstOrCreate(['user_id' => $user->id], ['balance' => 0]);
 
             return back()->with('response', ['status' => 'success', 'message' => 'User created successfully']);
         } catch (\Exception $e) {
