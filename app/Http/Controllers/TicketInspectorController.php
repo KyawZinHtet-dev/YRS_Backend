@@ -6,8 +6,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TicketInspector\TicketInspectorUpdateRequest;
 use App\Http\Requests\TicketInspector\TicketInspectorStoreRequest;
-use App\Models\TicketInspector;
 use App\Repositories\TicketInspectorRepository;
+use Illuminate\Http\Request;
 
 class TicketInspectorController extends Controller
 {
@@ -19,9 +19,9 @@ class TicketInspectorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ticket_inspectors = $this->ticketInspectorRepository->all();
+        $ticket_inspectors = $this->ticketInspectorRepository->dataTable($request);
         return inertia('ticket-inspectors/index', ['ticket_inspectors' => $ticket_inspectors]);
     }
 

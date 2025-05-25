@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\WalletRepository;
+use Illuminate\Http\Request;
 
 class WalletController extends Controller
 {
@@ -12,9 +13,16 @@ class WalletController extends Controller
         $this->walletRepository = $walletRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $wallets = $this->walletRepository->all();
+        $wallets = $this->walletRepository->dataTable($request);
         return inertia('wallets/index', ['wallets' => $wallets]);
+    }
+
+    public function search()
+    {
+        return response()->json([
+            'wallets' => $this->walletRepository->search(request('query'), request('offset'), request('size')),
+        ]);
     }
 }

@@ -1,17 +1,4 @@
-'use client';
-
-import {
-    ColumnDef,
-    ColumnFiltersState,
-    flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    SortingState,
-    useReactTable,
-    VisibilityState,
-} from '@tanstack/react-table';
+import { ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, SortingState, useReactTable, VisibilityState } from '@tanstack/react-table';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
@@ -25,6 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { router } from '@inertiajs/react';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { SearchIcon, Settings2, UserPlus, XIcon } from 'lucide-react';
 import AdminUserForm from './admin-user-form';
@@ -32,35 +20,49 @@ import AdminUserForm from './admin-user-form';
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    next_page_url: string | null | undefined;
+    prev_page_url: string | null | undefined;
+    first_page_url: string | null | undefined;
+    last_page_url: string | null | undefined;
+    current_page: number | null | undefined;
+    last_page: number | null | undefined;
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+    columns,
+    data,
+    next_page_url,
+    prev_page_url,
+    first_page_url,
+    last_page_url,
+    current_page,
+    last_page,
+}: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [globalFilter, setGlobalFilter] = useState<string>('');
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 7,
-    });
+    const pageSize = route().params.paginate ?? 5;
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         onSortingChange: setSorting,
-        onPaginationChange: setPagination,
-        getSortedRowModel: getSortedRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onColumnFiltersChange: setColumnFilters,
-        getFilteredRowModel: getFilteredRowModel(),
         onGlobalFilterChange: setGlobalFilter,
-        globalFilterFn: 'includesString',
+        manualPagination: true,
+        manualSorting: true,
+        manualFiltering: true,
+        initialState: {
+            pagination: {
+                pageSize: Number(pageSize),
+            },
+        },
         state: {
             sorting,
             columnFilters,
             columnVisibility,
-            pagination,
             globalFilter,
         },
     });
@@ -111,14 +113,38 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                         <Input
                             placeholder="Search..."
                             value={globalFilter ?? ''}
-                            onChange={(e) => table.setGlobalFilter(String(e.target.value))}
+                            onChange={(e) => {
+                                table.setGlobalFilter(String(e.target.value));
+                                router.visit(
+                                    route('admin-users.index', {
+                                        search: e.target.value,
+                                        paginate: route().params.paginate,
+                                        page: route().params.page,
+                                        col: route().params.col,
+                                        dir: route().params.dir,
+                                    }),
+                                    { preserveState: true, preserveScroll: true },
+                                );
+                            }}
                             className="max-w-sm"
                         />
                         <div className="absolute inset-y-0 right-0 flex items-center pr-2">
                             {globalFilter === '' && <SearchIcon className="text-muted-foreground h-5 w-5" aria-hidden="true" />}
                             {globalFilter && (
                                 <XIcon
-                                    onClick={() => table.setGlobalFilter('')}
+                                    onClick={() => {
+                                        table.setGlobalFilter('');
+                                        router.visit(
+                                            route('admin-users.index', {
+                                                search: '',
+                                                paginate: route().params.paginate,
+                                                page: route().params.page,
+                                                col: route().params.col,
+                                                dir: route().params.dir,
+                                            }),
+                                            { preserveState: true, preserveScroll: true },
+                                        );
+                                    }}
                                     className="text-muted-foreground h-5 w-5 cursor-pointer"
                                     aria-hidden="true"
                                 />
@@ -186,7 +212,16 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 </div>
             </CardContent>
             <CardFooter className="block">
-                <DataTablePagination table={table} />
+                <DataTablePagination
+                    next_page_url={next_page_url}
+                    prev_page_url={prev_page_url}
+                    first_page_url={first_page_url}
+                    last_page_url={last_page_url}
+                    current_page={current_page}
+                    last_page={last_page}
+                    table={table}
+                    routePath="admin-users.index"
+                />
             </CardFooter>
         </Card>
     );

@@ -4,13 +4,15 @@ import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
+import { router } from '@inertiajs/react';
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
     column: Column<TData, TValue>;
     title: string;
+    routePath: string;
 }
 
-export function DataTableColumnHeader<TData, TValue>({ column, title, className }: DataTableColumnHeaderProps<TData, TValue>) {
+export function DataTableColumnHeader<TData, TValue>({ column, title, className, routePath }: DataTableColumnHeaderProps<TData, TValue>) {
     if (!column.getCanSort()) {
         return <div className={cn(className)}>{title}</div>;
     }
@@ -25,11 +27,45 @@ export function DataTableColumnHeader<TData, TValue>({ column, title, className 
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
-                    <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+                    <DropdownMenuItem
+                        onClick={function () {
+                            router.visit(
+                                route(routePath, {
+                                    col: column.id,
+                                    dir: 'asc',
+                                    paginate: route().params.paginate,
+                                    page: route().params.page,
+                                    search: route().params.search,
+                                }),
+                                {
+                                    preserveState: true,
+                                    preserveScroll: true,
+                                },
+                            );
+                            column.toggleSorting(false);
+                        }}
+                    >
                         <ArrowUp className="text-muted-foreground/70 h-3.5 w-3.5" />
                         Asc
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+                    <DropdownMenuItem
+                        onClick={function () {
+                            router.visit(
+                                route(routePath, {
+                                    col: column.id,
+                                    dir: 'desc',
+                                    paginate: route().params.paginate,
+                                    page: route().params.page,
+                                    search: route().params.search,
+                                }),
+                                {
+                                    preserveState: true,
+                                    preserveScroll: true,
+                                },
+                            );
+                            column.toggleSorting(true);
+                        }}
+                    >
                         <ArrowDown className="text-muted-foreground/70 h-3.5 w-3.5" />
                         Desc
                     </DropdownMenuItem>

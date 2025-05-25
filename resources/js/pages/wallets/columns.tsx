@@ -1,63 +1,52 @@
-'use client';
-
 import { ColumnDef } from '@tanstack/react-table';
 
 import { DataTableColumnHeader } from '@/components/datatable/column-header';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Wallets = {
+export type Wallet = {
     id: number;
     user_id: number;
-    user_name: string;
-    user_email: string;
     balance: number;
-    user: { name: string; email: string };
+    name: string;
+    email: string;
     created_at: string;
     updated_at: string;
 };
 
-export const columns: ColumnDef<Wallets>[] = [
+export const columns: ColumnDef<Wallet>[] = [
     {
-        accessorKey: 'no',
-        header: () => <div className="text-center">No.</div>,
-        cell: ({ row }) => {
-            let id = row.index;
-            return <div className="text-center">{++id}</div>;
-        },
-    },
-    {
-        accessorKey: 'user.name',
+        accessorKey: 'name',
         header: ({ column }) => {
             return (
-                <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Name" />
+                <div className="ml-3">
+                    <DataTableColumnHeader routePath="wallets.index" column={column} title="User Name" />
                 </div>
             );
         },
         cell: ({ row }) => {
-            return <div className="text-center">{row.original.user.name}</div>;
+            return <div className="my-1.5 ml-3">{row.original.name}</div>;
         },
     },
     {
-        accessorKey: 'user.email',
+        accessorKey: 'email',
         header: ({ column }) => {
             return (
-                <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Email" />
+                <div>
+                    <DataTableColumnHeader routePath="wallets.index" column={column} title="User Email" />
                 </div>
             );
         },
         cell: ({ row }) => {
-            return <div className="text-center">{row.original.user.email}</div>;
+            return <div>{row.original.email}</div>;
         },
     },
     {
         accessorKey: 'balance',
         header: ({ column }) => {
             return (
-                <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Balance" />
+                <div>
+                    <DataTableColumnHeader routePath="wallets.index" column={column} title="Balance" />
                 </div>
             );
         },
@@ -67,7 +56,7 @@ export const columns: ColumnDef<Wallets>[] = [
                 style: 'currency',
                 currency: 'MMK',
             });
-            return <div className="text-center">{formattedCurrency}</div>;
+            return <div>{formattedCurrency}</div>;
         },
     },
     {
@@ -75,7 +64,7 @@ export const columns: ColumnDef<Wallets>[] = [
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Created At" />
+                    <DataTableColumnHeader routePath="wallets.index" column={column} title="Created At" />
                 </div>
             );
         },
@@ -90,7 +79,7 @@ export const columns: ColumnDef<Wallets>[] = [
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Updated At" />
+                    <DataTableColumnHeader routePath="wallets.index" column={column} title="Updated At" />
                 </div>
             );
         },

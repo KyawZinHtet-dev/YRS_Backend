@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\Contracts\BaseRepository;
+use Illuminate\Http\Request;
 
 class UserRepository implements BaseRepository
 {
@@ -13,6 +14,22 @@ class UserRepository implements BaseRepository
     public function __construct(User $model)
     {
         $this->model = $model;
+    }
+
+    public function dataTable(Request $request)
+    {
+        $query = User::query();
+        return $query
+            ->when($request->has('search'), function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')->orWhere('email', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->has('col') && $request->has('dir'), function ($q) use ($request) {
+                $q->orderBy($request->col, $request->dir);
+            })
+            ->when(!$request->has('col') && !$request->has('dir'), function ($q) {
+                $q->orderBy('updated_at', 'desc');
+            })
+            ->paginate($request->has('paginate') ? $request->paginate : 5)->appends($request->all());
     }
 
     public function all()

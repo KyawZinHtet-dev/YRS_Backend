@@ -1,17 +1,4 @@
-'use client';
-
-import {
-    ColumnDef,
-    ColumnFiltersState,
-    flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    SortingState,
-    useReactTable,
-    VisibilityState,
-} from '@tanstack/react-table';
+import { ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, SortingState, useReactTable, VisibilityState } from '@tanstack/react-table';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
@@ -21,43 +8,61 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { SearchIcon, Settings2, XIcon } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { router } from '@inertiajs/react';
+import { DialogClose } from '@radix-ui/react-dialog';
+import { BanknoteArrowDown, BanknoteArrowUp, SearchIcon, Settings2, XIcon } from 'lucide-react';
+import WalletForm from './wallet-form';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    next_page_url: string | null | undefined;
+    prev_page_url: string | null | undefined;
+    first_page_url: string | null | undefined;
+    last_page_url: string | null | undefined;
+    current_page: number | null | undefined;
+    last_page: number | null | undefined;
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+    columns,
+    data,
+    next_page_url,
+    prev_page_url,
+    first_page_url,
+    last_page_url,
+    current_page,
+    last_page,
+}: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [globalFilter, setGlobalFilter] = useState<string>('');
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 7,
-    });
+    const pageSize = route().params.paginate ?? 5;
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         onSortingChange: setSorting,
-        onPaginationChange: setPagination,
-        getSortedRowModel: getSortedRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onColumnFiltersChange: setColumnFilters,
-        getFilteredRowModel: getFilteredRowModel(),
         onGlobalFilterChange: setGlobalFilter,
-        filterFromLeafRows: true,
-        globalFilterFn: 'includesString',
+        manualPagination: true,
+        manualSorting: true,
+        manualFiltering: true,
+        initialState: {
+            pagination: {
+                pageSize: Number(pageSize),
+            },
+        },
         state: {
             sorting,
             columnFilters,
             columnVisibility,
-            pagination,
             globalFilter,
         },
     });
@@ -69,6 +74,68 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     <CardTitle>Wallet Table</CardTitle>
                     <CardDescription>Watch your wallets here.</CardDescription>
                 </div>
+                <div className="flex items-center gap-2">
+                    <Dialog>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <DialogTrigger asChild>
+                                    <TooltipTrigger asChild>
+                                        <Button variant="outline">
+                                            <BanknoteArrowDown />
+                                        </Button>
+                                    </TooltipTrigger>
+                                </DialogTrigger>
+                                <TooltipContent>
+                                    <p>Reduce Wallet Balance</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Reduce Wallet Balance</DialogTitle>
+                                <DialogDescription>Reduce a user's wallet balance here.</DialogDescription>
+                            </DialogHeader>
+                            <WalletForm mode="reduce" />
+                            <DialogFooter>
+                                <DialogClose asChild>
+                                    <Button className="w-full" type="button" variant="outline">
+                                        Cancel
+                                    </Button>
+                                </DialogClose>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                    <Dialog>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <DialogTrigger asChild>
+                                    <TooltipTrigger asChild>
+                                        <Button variant="outline">
+                                            <BanknoteArrowUp />
+                                        </Button>
+                                    </TooltipTrigger>
+                                </DialogTrigger>
+                                <TooltipContent>
+                                    <p>Add Wallet Balance</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Add Wallet Balance</DialogTitle>
+                                <DialogDescription>Add a user's wallet balance here.</DialogDescription>
+                            </DialogHeader>
+                            <WalletForm mode="add" />
+                            <DialogFooter>
+                                <DialogClose asChild>
+                                    <Button className="w-full" type="button" variant="outline">
+                                        Cancel
+                                    </Button>
+                                </DialogClose>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                </div>
             </CardHeader>
             <CardContent>
                 <div className="flex items-center justify-between gap-2 py-4">
@@ -76,14 +143,38 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                         <Input
                             placeholder="Search..."
                             value={globalFilter ?? ''}
-                            onChange={(e) => table.setGlobalFilter(String(e.target.value))}
+                            onChange={(e) => {
+                                table.setGlobalFilter(String(e.target.value));
+                                router.visit(
+                                    route('wallets.index', {
+                                        search: e.target.value,
+                                        paginate: route().params.paginate,
+                                        page: route().params.page,
+                                        col: route().params.col,
+                                        dir: route().params.dir,
+                                    }),
+                                    { preserveState: true, preserveScroll: true },
+                                );
+                            }}
                             className="max-w-sm"
                         />
                         <div className="absolute inset-y-0 right-0 flex items-center pr-2">
                             {globalFilter === '' && <SearchIcon className="text-muted-foreground h-5 w-5" aria-hidden="true" />}
                             {globalFilter && (
                                 <XIcon
-                                    onClick={() => table.setGlobalFilter('')}
+                                    onClick={() => {
+                                        table.setGlobalFilter('');
+                                        router.visit(
+                                            route('wallets.index', {
+                                                search: '',
+                                                paginate: route().params.paginate,
+                                                page: route().params.page,
+                                                col: route().params.col,
+                                                dir: route().params.dir,
+                                            }),
+                                            { preserveState: true, preserveScroll: true },
+                                        );
+                                    }}
                                     className="text-muted-foreground h-5 w-5 cursor-pointer"
                                     aria-hidden="true"
                                 />
@@ -151,7 +242,16 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 </div>
             </CardContent>
             <CardFooter className="block">
-                <DataTablePagination table={table} />
+                <DataTablePagination
+                    next_page_url={next_page_url}
+                    prev_page_url={prev_page_url}
+                    first_page_url={first_page_url}
+                    last_page_url={last_page_url}
+                    current_page={current_page}
+                    last_page={last_page}
+                    table={table}
+                    routePath="wallets.index"
+                />
             </CardFooter>
         </Card>
     );

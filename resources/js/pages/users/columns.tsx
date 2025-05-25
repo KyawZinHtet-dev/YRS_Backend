@@ -1,5 +1,3 @@
-'use client';
-
 import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 
@@ -36,7 +34,7 @@ import UserForm from './user-form';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Users = {
+export type User = {
     id: number;
     name: string;
     email: string;
@@ -45,7 +43,7 @@ export type Users = {
     updated_at: string;
 };
 
-function ActionDroupdownMenu({ data }: { data: Users }) {
+function ActionDroupdownMenu({ data }: { data: User }) {
     const { delete: destroy, processing } = useForm();
     const [dialogOpen, setDialogOpen] = useState(false);
     return (
@@ -110,39 +108,31 @@ function ActionDroupdownMenu({ data }: { data: Users }) {
     );
 }
 
-export const columns: ColumnDef<Users>[] = [
-    {
-        accessorKey: 'no',
-        header: () => <div className="text-center">No.</div>,
-        cell: ({ row }) => {
-            let id = row.index;
-            return <div className="text-center">{++id}</div>;
-        },
-    },
+export const columns: ColumnDef<User>[] = [
     {
         accessorKey: 'name',
         header: ({ column }) => {
             return (
-                <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Name" />
+                <div className="ml-3">
+                    <DataTableColumnHeader routePath="users.index" column={column} title="Name" />
                 </div>
             );
         },
         cell: ({ row }) => {
-            return <div className="text-center">{row.original.name}</div>;
+            return <div className="ml-3">{row.original.name}</div>;
         },
     },
     {
         accessorKey: 'email',
         header: ({ column }) => {
             return (
-                <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Email" />
+                <div>
+                    <DataTableColumnHeader routePath="users.index" column={column} title="Email" />
                 </div>
             );
         },
         cell: ({ row }) => {
-            return <div className="text-center">{row.original.email}</div>;
+            return <div>{row.original.email}</div>;
         },
     },
     {
@@ -150,7 +140,7 @@ export const columns: ColumnDef<Users>[] = [
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Verified At" />
+                    <DataTableColumnHeader routePath="users.index" column={column} title="Verified At" />
                 </div>
             );
         },
@@ -172,7 +162,7 @@ export const columns: ColumnDef<Users>[] = [
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Created At" />
+                    <DataTableColumnHeader routePath="users.index" column={column} title="Created At" />
                 </div>
             );
         },
@@ -187,7 +177,7 @@ export const columns: ColumnDef<Users>[] = [
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Updated At" />
+                    <DataTableColumnHeader routePath="users.index" column={column} title="Updated At" />
                 </div>
             );
         },

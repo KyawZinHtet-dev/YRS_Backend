@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 
 
-use App\Http\Requests\AdminUser\AdminUserUpdateRequest;
-use App\Http\Requests\AdminUser\AdminUserStoreRequest;
 use App\Repositories\AdminUserRepository;
+use App\Http\Requests\AdminUser\AdminUserStoreRequest;
+use App\Http\Requests\AdminUser\AdminUserUpdateRequest;
+use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
 {
@@ -18,9 +19,9 @@ class AdminUserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $admin_users = $this->adminUserRepository->all();
+        $admin_users = $this->adminUserRepository->dataTable($request);
         return inertia('admin-users/index', ['admin_users' => $admin_users]);
     }
 

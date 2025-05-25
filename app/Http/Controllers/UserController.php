@@ -8,6 +8,7 @@ use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Repositories\UserRepository;
 use App\Repositories\WalletRepository;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -21,9 +22,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->userRepository->all();
+        $users = $this->userRepository->dataTable($request);
         return inertia('users/index', ['users' => $users]);
     }
 

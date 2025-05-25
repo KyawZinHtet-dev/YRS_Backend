@@ -1,5 +1,3 @@
-'use client';
-
 import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 
@@ -115,37 +113,29 @@ function ActionDroupdownMenu({ data }: { data: TicketInspector }) {
 
 export const columns: ColumnDef<TicketInspector>[] = [
     {
-        accessorKey: 'no',
-        header: () => <div className="text-center">No.</div>,
-        cell: ({ row }) => {
-            let id = row.index;
-            return <div className="text-center">{++id}</div>;
-        },
-    },
-    {
         accessorKey: 'name',
         header: ({ column }) => {
             return (
-                <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Name" />
+                <div className="ml-3">
+                    <DataTableColumnHeader routePath="ticket-inspectors.index" column={column} title="Name" />
                 </div>
             );
         },
         cell: ({ row }) => {
-            return <div className="text-center">{row.original.name}</div>;
+            return <div className="ml-3">{row.original.name}</div>;
         },
     },
     {
         accessorKey: 'email',
         header: ({ column }) => {
             return (
-                <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Email" />
+                <div>
+                    <DataTableColumnHeader routePath="ticket-inspectors.index" column={column} title="Email" />
                 </div>
             );
         },
         cell: ({ row }) => {
-            return <div className="text-center">{row.original.email}</div>;
+            return <div>{row.original.email}</div>;
         },
     },
     {
@@ -153,7 +143,7 @@ export const columns: ColumnDef<TicketInspector>[] = [
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Verified At" />
+                    <DataTableColumnHeader routePath="ticket-inspectors.index" column={column} title="Verified At" />
                 </div>
             );
         },
@@ -175,7 +165,7 @@ export const columns: ColumnDef<TicketInspector>[] = [
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Created At" />
+                    <DataTableColumnHeader routePath="ticket-inspectors.index" column={column} title="Created At" />
                 </div>
             );
         },
@@ -190,7 +180,7 @@ export const columns: ColumnDef<TicketInspector>[] = [
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-center">
-                    <DataTableColumnHeader column={column} title="Updated At" />
+                    <DataTableColumnHeader routePath="ticket-inspectors.index" column={column} title="Updated At" />
                 </div>
             );
         },
