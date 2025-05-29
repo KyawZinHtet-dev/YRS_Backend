@@ -1,48 +1,55 @@
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
+import { Combobox } from '@/components/ui/combobox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
 
 interface WalletForm {
-    wallet_id: number;
+    wallet_id: string;
     amount: number;
     description: string;
 }
 
-type UserFormProps = {
+interface WalletFormProps {
+    wallets: {
+        id: number;
+        email: string;
+    }[];
+    next_page_url: string | null | undefined;
     mode: 'add' | 'reduce';
     setDialogOpen?: (open: boolean) => void;
-};
+}
 
-const WalletForm = ({ mode }: UserFormProps) => {
+const WalletForm = ({ mode }: WalletFormProps) => {
+    const [walletId, setWalletId] = useState<string | number>('');
     const { data, setData, errors, processing } = useForm<Required<WalletForm>>({
-        wallet_id: 0,
+        wallet_id: '',
         amount: 0,
         description: '',
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        // if (mode === 'edit') {
-        //     put(route('users.update', user?.id), {
-        //         onSuccess: () => setDialogOpen && setDialogOpen(false),
-        //         onError: () => reset('password', 'password_confirmation'),
-        //     });
-        // } else {
-        //     post(route('users.store'), {
-        //         onSuccess: () => reset(),
-        //         onError: () => reset('password', 'password_confirmation'),
-        //     });
-        // }
+        console.log(data);
     };
+
+    useEffect(() => {
+        setData('wallet_id', walletId as string);
+    }, [walletId, setData]);
 
     return (
         <div className="grid gap-4 pt-4">
             <form onSubmit={submit} className="space-y-6">
+                <div className="grid gap-2">
+                    <Label htmlFor="amount">Wallet</Label>
+                    <Combobox title="Wallet" getSelectedValue={setWalletId} comboboxOption="email" comboboxValue="id" routePath="wallets.combobox" />
+                    <InputError message={errors.amount} />
+                </div>
+
                 <div className="grid gap-2">
                     <Label htmlFor="amount">Amount in MMK</Label>
                     <Input
@@ -51,11 +58,12 @@ const WalletForm = ({ mode }: UserFormProps) => {
                         required
                         tabIndex={2}
                         autoComplete="amount"
-                        value={data.amount}
+                        value={isNaN(data.amount) ? '' : data.amount}
                         onChange={(e) => setData('amount', parseInt(e.target.value))}
                         disabled={processing}
                         placeholder="Amount in MMK"
                         min={0}
+                        step={100}
                     />
                     <InputError message={errors.amount} />
                 </div>

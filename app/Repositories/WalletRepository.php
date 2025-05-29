@@ -33,6 +33,17 @@ class WalletRepository implements BaseRepository
             ->paginate($request->has('paginate') ? $request->paginate : 5)->appends($request->all());
     }
 
+    public function combobox(Request $request)
+    {
+        $query = Wallet::join('users', 'wallets.user_id', '=', 'users.id')
+            ->select('wallets.*', 'users.name', 'users.email');
+        return $query
+            ->when($request->has('search'), function ($q) use ($request) {
+                $q->where('users.email', 'like', '%' . $request->search . '%');
+            })
+            ->paginate($request->has('paginate') ? $request->paginate : 5)->appends($request->all());
+    }
+
     public function all()
     {
         return $this->model->orderBy('updated_at', 'desc')->with('user')->get();

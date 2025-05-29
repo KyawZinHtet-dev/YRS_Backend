@@ -30,6 +30,7 @@ const WalletsIndex = ({ wallets }: { wallets: WalletPaginagion }) => {
                     <DataTable
                         columns={columns}
                         data={wallets.data}
+                        wallets={wallets.data}
                         next_page_url={wallets.next_page_url}
                         prev_page_url={wallets.prev_page_url}
                         first_page_url={wallets.first_page_url}

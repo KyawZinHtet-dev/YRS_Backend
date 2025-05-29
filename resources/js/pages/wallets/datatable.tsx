@@ -20,6 +20,10 @@ import WalletForm from './wallet-form';
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    wallets: {
+        id: number;
+        email: string;
+    }[];
     next_page_url: string | null | undefined;
     prev_page_url: string | null | undefined;
     first_page_url: string | null | undefined;
@@ -31,6 +35,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
     columns,
     data,
+    wallets,
     next_page_url,
     prev_page_url,
     first_page_url,
@@ -95,7 +100,7 @@ export function DataTable<TData, TValue>({
                                 <DialogTitle>Reduce Wallet Balance</DialogTitle>
                                 <DialogDescription>Reduce a user's wallet balance here.</DialogDescription>
                             </DialogHeader>
-                            <WalletForm mode="reduce" />
+                            <WalletForm mode="reduce" wallets={wallets} next_page_url={next_page_url} />
                             <DialogFooter>
                                 <DialogClose asChild>
                                     <Button className="w-full" type="button" variant="outline">
@@ -125,7 +130,7 @@ export function DataTable<TData, TValue>({
                                 <DialogTitle>Add Wallet Balance</DialogTitle>
                                 <DialogDescription>Add a user's wallet balance here.</DialogDescription>
                             </DialogHeader>
-                            <WalletForm mode="add" />
+                            <WalletForm mode="reduce" wallets={wallets} next_page_url={next_page_url} />
                             <DialogFooter>
                                 <DialogClose asChild>
                                     <Button className="w-full" type="button" variant="outline">

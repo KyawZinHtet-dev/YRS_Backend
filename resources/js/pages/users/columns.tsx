@@ -26,6 +26,7 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { axios } from '@/lib/axios';
 import { cn } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
@@ -84,7 +85,13 @@ function ActionDroupdownMenu({ data }: { data: User }) {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => destroy(`users/${data.id}`)} className={cn(buttonVariants({ variant: 'destructive' }))}>
+                        <AlertDialogAction
+                            onClick={() => {
+                                destroy(`users/${data.id}`);
+                                axios.storage?.clear?.();
+                            }}
+                            className={cn(buttonVariants({ variant: 'destructive' }))}
+                        >
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}Delete
                         </AlertDialogAction>
                     </AlertDialogFooter>

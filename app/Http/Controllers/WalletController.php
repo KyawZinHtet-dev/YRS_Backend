@@ -19,10 +19,9 @@ class WalletController extends Controller
         return inertia('wallets/index', ['wallets' => $wallets]);
     }
 
-    public function search()
+    public function combobox(Request $request)
     {
-        return response()->json([
-            'wallets' => $this->walletRepository->search(request('query'), request('offset'), request('size')),
-        ]);
+        $wallets = $this->walletRepository->combobox($request);
+        return response()->json($wallets);
     }
 }

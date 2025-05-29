@@ -23,28 +23,6 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('admin-users', AdminUserController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::get('wallets/test', function (Request $request) {
-        $query = Wallet::join('users', 'wallets.user_id', '=', 'users.id')
-            ->select('wallets.*', 'users.name', 'users.email');
-        $wallets =  $query
-            ->when($request->has('search'), function ($q) use ($request) {
-                $q->where('users.name', 'like', '%' . $request->search . '%')->orWhere('users.email', 'like', '%' . $request->search . '%');
-            })
-            ->when($request->has('col') && $request->has('dir'), function ($q) use ($request) {
-                if ($request->col == 'user_name') {
-                    $request->col = 'users.name';
-                }
-                if ($request->col == 'user_email') {
-                    $request->col = 'users.email';
-                }
-                $q->orderBy($request->col, $request->dir);
-            })
-            ->when(!$request->has('col') && !$request->has('dir'), function ($q) {
-                $q->orderBy('updated_at', 'desc');
-            })
-            ->paginate($request->has('paginate') ? $request->paginate : 5)->appends($request->all());
-        return $wallets;
-    })->name('wallets.test');
 
     Route::resource('users', UserController::class)->only(['index', 'store', 'update', 'destroy']);
 
@@ -56,6 +34,7 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
     ]);
 
     Route::resource('wallets', WalletController::class)->only(['index']);
-    Route::post('wallets/{wallet}/add', [WalletController::class, 'deposit'])->name('wallets.add');
-    Route::post('wallets/{wallet}/reduce', [WalletController::class, 'withdraw'])->name('wallets.reduce');
+    Route::get('wallets/combobox', [WalletController::class, 'combobox'])->name('wallets.combobox');
+    // Route::post('wallets/{wallet}/add', [WalletController::class, 'deposit'])->name('wallets.add');
+    // Route::post('wallets/{wallet}/reduce', [WalletController::class, 'withdraw'])->name('wallets.reduce');
 });

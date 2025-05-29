@@ -2,6 +2,7 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { axios } from '@/lib/axios';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
@@ -34,11 +35,13 @@ const UserForm = ({ user, mode, setDialogOpen }: UserFormProps) => {
                 onSuccess: () => setDialogOpen && setDialogOpen(false),
                 onError: () => reset('password', 'password_confirmation'),
             });
+            axios.storage?.clear?.();
         } else {
             post(route('users.store'), {
                 onSuccess: () => reset(),
                 onError: () => reset('password', 'password_confirmation'),
             });
+            axios.storage?.clear?.();
         }
     };
 
