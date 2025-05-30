@@ -17,8 +17,8 @@ return new class extends Migration
             $table->bigInteger('wallet_id');
             $table->integer('amount');
             $table->text('description')->nullable();
-            $table->bigInteger('sourceable_id');
-            $table->string('sourceable_type');
+            $table->bigInteger('sourceable_id')->nullable();
+            $table->string('sourceable_type')->nullable();
             $table->enum('method', ['add', 'reduce']);
             $table->enum('type', ['manual', 'top_up', 'buy_ticket']);
             $table->timestamps();

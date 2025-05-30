@@ -43,6 +43,8 @@ export function DataTable<TData, TValue>({
     current_page,
     last_page,
 }: DataTableProps<TData, TValue>) {
+    const [addDialogOpen, setAddDialogOpen] = useState(false);
+    const [reduceDialogOpen, setReduceDialogOpen] = useState(false);
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -80,7 +82,7 @@ export function DataTable<TData, TValue>({
                     <CardDescription>Watch your wallets here.</CardDescription>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Dialog>
+                    <Dialog open={reduceDialogOpen} onOpenChange={setReduceDialogOpen}>
                         <TooltipProvider>
                             <Tooltip>
                                 <DialogTrigger asChild>
@@ -100,7 +102,7 @@ export function DataTable<TData, TValue>({
                                 <DialogTitle>Reduce Wallet Balance</DialogTitle>
                                 <DialogDescription>Reduce a user's wallet balance here.</DialogDescription>
                             </DialogHeader>
-                            <WalletForm mode="reduce" wallets={wallets} next_page_url={next_page_url} />
+                            <WalletForm mode="reduce" wallets={wallets} next_page_url={next_page_url} setReduceDialogOpen={setReduceDialogOpen} />
                             <DialogFooter>
                                 <DialogClose asChild>
                                     <Button className="w-full" type="button" variant="outline">
@@ -110,7 +112,7 @@ export function DataTable<TData, TValue>({
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
-                    <Dialog>
+                    <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
                         <TooltipProvider>
                             <Tooltip>
                                 <DialogTrigger asChild>
@@ -130,7 +132,7 @@ export function DataTable<TData, TValue>({
                                 <DialogTitle>Add Wallet Balance</DialogTitle>
                                 <DialogDescription>Add a user's wallet balance here.</DialogDescription>
                             </DialogHeader>
-                            <WalletForm mode="reduce" wallets={wallets} next_page_url={next_page_url} />
+                            <WalletForm mode="add" wallets={wallets} next_page_url={next_page_url} setAddDialogOpen={setAddDialogOpen} />
                             <DialogFooter>
                                 <DialogClose asChild>
                                     <Button className="w-full" type="button" variant="outline">

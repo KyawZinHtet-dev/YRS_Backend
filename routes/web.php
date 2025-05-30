@@ -35,6 +35,6 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
 
     Route::resource('wallets', WalletController::class)->only(['index']);
     Route::get('wallets/combobox', [WalletController::class, 'combobox'])->name('wallets.combobox');
-    // Route::post('wallets/{wallet}/add', [WalletController::class, 'deposit'])->name('wallets.add');
-    // Route::post('wallets/{wallet}/reduce', [WalletController::class, 'withdraw'])->name('wallets.reduce');
+    Route::post('wallets/balance/add', [WalletController::class, 'addBalance'])->name('wallets.balance.add');
+    Route::post('wallets/balance/reduce', [WalletController::class, 'reduceBalance'])->name('wallets.balance.reduce');
 });

@@ -11,14 +11,14 @@ class WalletRepository implements BaseRepository
 {
     protected $model;
 
-    public function __construct(Wallet $model)
+    public function __construct()
     {
-        $this->model = $model;
+        $this->model = new Wallet();
     }
 
     public function dataTable(Request $request)
     {
-        $query = Wallet::join('users', 'wallets.user_id', '=', 'users.id')
+        $query = $this->model->join('users', 'wallets.user_id', '=', 'users.id')
             ->select('wallets.*', 'users.name', 'users.email');
         return  $query
             ->when($request->has('search'), function ($q) use ($request) {
@@ -44,6 +44,25 @@ class WalletRepository implements BaseRepository
             ->paginate($request->has('paginate') ? $request->paginate : 5)->appends($request->all());
     }
 
+    public function addBalance($id, $amount)
+    {
+        $wallet = $this->model::lockForUpdate()->find($id);
+        $wallet->increment('balance', $amount);
+        $wallet->save();
+        return $wallet;
+    }
+
+    public function reduceBalance($id, $amount)
+    {
+        $wallet = $this->model::lockForUpdate()->find($id);
+        if ($wallet->balance < $amount) {
+            throw new \Exception('Your balance is insufficient.');
+        }
+        $wallet->decrement('balance', $amount);
+        $wallet->save();
+        return $wallet;
+    }
+
     public function all()
     {
         return $this->model->orderBy('updated_at', 'desc')->with('user')->get();
@@ -54,17 +73,17 @@ class WalletRepository implements BaseRepository
         return $this->model->find($id);
     }
 
-    public function search($query, $offset, $size)
-    {
-        return $this->model->whereHas('user', function ($q) use ($query) {
-            $q->where('name', 'like', '%' . $query . '%');
-            $q->orWhere('email', 'like', '%' . $query . '%');
-        })->with('user')
-            ->offset($offset)
-            ->limit($size)
-            ->orderBy('updated_at', 'desc')
-            ->get();
-    }
+    // public function search($query, $offset, $size)
+    // {
+    //     return $this->model->whereHas('user', function ($q) use ($query) {
+    //         $q->where('name', 'like', '%' . $query . '%');
+    //         $q->orWhere('email', 'like', '%' . $query . '%');
+    //     })->with('user')
+    //         ->offset($offset)
+    //         ->limit($size)
+    //         ->orderBy('updated_at', 'desc')
+    //         ->get();
+    // }
 
     public function create(array $data)
     {

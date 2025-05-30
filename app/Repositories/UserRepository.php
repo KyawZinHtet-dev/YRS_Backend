@@ -11,14 +11,14 @@ class UserRepository implements BaseRepository
 {
     protected $model;
 
-    public function __construct(User $model)
+    public function __construct()
     {
-        $this->model = $model;
+        $this->model = new User();
     }
 
     public function dataTable(Request $request)
     {
-        $query = User::query();
+        $query = $this->model->query();
         return $query
             ->when($request->has('search'), function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')->orWhere('email', 'like', '%' . $request->search . '%');

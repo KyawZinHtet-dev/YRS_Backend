@@ -21,12 +21,13 @@ interface WalletFormProps {
     }[];
     next_page_url: string | null | undefined;
     mode: 'add' | 'reduce';
-    setDialogOpen?: (open: boolean) => void;
+    setAddDialogOpen?: (open: boolean) => void;
+    setReduceDialogOpen?: (open: boolean) => void;
 }
 
-const WalletForm = ({ mode }: WalletFormProps) => {
+const WalletForm = ({ mode, setAddDialogOpen, setReduceDialogOpen }: WalletFormProps) => {
     const [walletId, setWalletId] = useState<string | number>('');
-    const { data, setData, errors, processing } = useForm<Required<WalletForm>>({
+    const { data, setData, errors, processing, post } = useForm<Required<WalletForm>>({
         wallet_id: '',
         amount: 0,
         description: '',
@@ -34,7 +35,15 @@ const WalletForm = ({ mode }: WalletFormProps) => {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        console.log(data);
+        if (mode === 'add') {
+            post(route('wallets.balance.add'), {
+                onSuccess: () => setAddDialogOpen && setAddDialogOpen(false),
+            });
+        } else {
+            post(route('wallets.balance.reduce'), {
+                onSuccess: () => setReduceDialogOpen && setReduceDialogOpen(false),
+            });
+        }
     };
 
     useEffect(() => {
@@ -47,7 +56,7 @@ const WalletForm = ({ mode }: WalletFormProps) => {
                 <div className="grid gap-2">
                     <Label htmlFor="amount">Wallet</Label>
                     <Combobox title="Wallet" getSelectedValue={setWalletId} comboboxOption="email" comboboxValue="id" routePath="wallets.combobox" />
-                    <InputError message={errors.amount} />
+                    <InputError message={errors.wallet_id} />
                 </div>
 
                 <div className="grid gap-2">
@@ -55,7 +64,6 @@ const WalletForm = ({ mode }: WalletFormProps) => {
                     <Input
                         id="amount"
                         type="number"
-                        required
                         tabIndex={2}
                         autoComplete="amount"
                         value={isNaN(data.amount) ? '' : data.amount}
@@ -63,7 +71,6 @@ const WalletForm = ({ mode }: WalletFormProps) => {
                         disabled={processing}
                         placeholder="Amount in MMK"
                         min={0}
-                        step={100}
                     />
                     <InputError message={errors.amount} />
                 </div>
@@ -72,7 +79,6 @@ const WalletForm = ({ mode }: WalletFormProps) => {
                     <Label htmlFor="description">Description</Label>
                     <Textarea
                         id="description"
-                        required
                         tabIndex={3}
                         autoComplete="description"
                         value={data.description}
