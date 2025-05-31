@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('wallet_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id')->unique("transaction_id_unique");
             $table->bigInteger('user_id');
             $table->bigInteger('wallet_id');
             $table->integer('amount');
