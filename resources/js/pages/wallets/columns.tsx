@@ -38,7 +38,7 @@ export const columns: ColumnDef<Wallet>[] = [
             );
         },
         cell: ({ row }) => {
-            return <div>{row.original.email}</div>;
+            return <div className="my-1.5">{row.original.email}</div>;
         },
     },
     {
@@ -56,7 +56,7 @@ export const columns: ColumnDef<Wallet>[] = [
                 style: 'currency',
                 currency: 'MMK',
             });
-            return <div>{formattedCurrency}</div>;
+            return <div className="my-1.5">{formattedCurrency}</div>;
         },
     },
     {
@@ -71,7 +71,7 @@ export const columns: ColumnDef<Wallet>[] = [
         cell: ({ row }) => {
             const created_at = row.original.created_at;
             const date = new Date(created_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
         },
     },
     {
@@ -86,7 +86,7 @@ export const columns: ColumnDef<Wallet>[] = [
         cell: ({ row }) => {
             const updated_at = row.original.updated_at;
             const date = new Date(updated_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
         },
     },
 ];
