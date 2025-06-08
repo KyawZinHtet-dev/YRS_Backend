@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookUser, LayoutGrid, ShieldUser, Users, Wallet, WalletCards } from 'lucide-react';
+import { BookUser, CalendarArrowUp, LayoutGrid, ShieldUser, Users, Wallet, WalletCards } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -36,6 +36,11 @@ const mainNavItems: NavItem[] = [
         title: 'Transactions',
         href: '/wallet-transactions',
         icon: WalletCards,
+    },
+    {
+        title: 'Top Up History',
+        href: '/top-up-history',
+        icon: CalendarArrowUp,
     },
 ];
 

@@ -42,22 +42,22 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
     }, [open, data.amount]);
 
     return (
-        <div className="ml-4">
+        <div>
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button variant={'outline'} size={'sm'}>
+                    <Button className="ml-4" variant={'outline'} size={'sm'}>
                         Details
                     </Button>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Transaction Details</DialogTitle>
+                        <DialogTitle className="text-center">Transaction Details</DialogTitle>
                         <DialogDescription></DialogDescription>
                     </DialogHeader>
-                    <div className="mt-3 mb-5">
+                    <div>
                         <h3
                             className={cn(
-                                'flex items-center justify-center gap-1 text-3xl font-semibold',
+                                'flex items-center justify-center gap-1 text-2xl font-semibold',
                                 data.method === 'add' ? 'text-green-500' : 'text-red-500',
                             )}
                         >
@@ -71,10 +71,10 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                             />
                             MMK
                         </h3>
-                        <div className="mt-10 flex flex-col gap-5">
+                        <div className="mt-5 flex flex-col gap-5">
                             <div className="flex items-center justify-between">
                                 <p className="font-medium">Transaction ID:</p>
-                                <p> {data.transaction_id}</p>
+                                <p className="text-sm"> {data.transaction_id}</p>
                             </div>
                             <div className="flex items-center justify-between">
                                 <p className="font-medium">From:</p>
@@ -86,19 +86,19 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                                                 'bg-purple-500 dark:bg-purple-600': data.type === 'Top Up',
                                                 'bg-amber-500 dark:bg-amber-600': data.type === 'Buy Ticket',
                                             },
-                                            'w-[80px] text-center',
+                                            'w-[80px]',
                                         )}
                                     >
                                         {data.type}
                                     </Badge>
                                 ) : (
-                                    <p>{data.user_email}</p>
+                                    <p className="text-sm">{data.user_email}</p>
                                 )}
                             </div>
                             <div className="flex items-center justify-between">
                                 <p className="font-medium">To:</p>
                                 {data.method === 'add' ? (
-                                    <p>{data.user_email}</p>
+                                    <p className="text-sm">{data.user_email}</p>
                                 ) : (
                                     <Badge
                                         className={cn(
@@ -107,7 +107,7 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                                                 'bg-purple-500 dark:bg-purple-600': data.type === 'Top Up',
                                                 'bg-amber-500 dark:bg-amber-600': data.type === 'Buy Ticket',
                                             },
-                                            'w-[80px] text-center',
+                                            'w-[80px]',
                                         )}
                                     >
                                         {data.type}
@@ -123,7 +123,7 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                                             'bg-purple-500 dark:bg-purple-600': data.type === 'Top Up',
                                             'bg-amber-500 dark:bg-amber-600': data.type === 'Buy Ticket',
                                         },
-                                        'w-[80px] text-center',
+                                        'w-[80px]',
                                     )}
                                 >
                                     {data.type}
@@ -131,11 +131,11 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                             </div>
                             <div className="flex items-center justify-between">
                                 <p className="font-medium">Date:</p>
-                                <p className="capitalize">{new Date(data.created_at).toLocaleString()}</p>
+                                <p className="text-sm capitalize">{new Date(data.created_at).toLocaleString()}</p>
                             </div>
                             <div className="flex items-center justify-between">
                                 <p className="font-medium">Description:</p>
-                                <p className="capitalize">{data.description}</p>
+                                <p className="text-sm capitalize">{data.description}</p>
                             </div>
                         </div>
                     </div>
@@ -279,7 +279,11 @@ export const columns: ColumnDef<WalletTransaction>[] = [
         accessorKey: 'actions',
         header: () => <div className="text-center">Actions</div>,
         cell: ({ row }) => {
-            return <ViewDetailDialog data={row.original} />;
+            return (
+                <div className="mr-2 flex items-center justify-center">
+                    <ViewDetailDialog data={row.original} />
+                </div>
+            );
         },
     },
 ];
