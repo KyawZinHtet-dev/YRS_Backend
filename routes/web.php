@@ -2,11 +2,12 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\TicketInspectorController;
-use App\Http\Controllers\TopUpHistoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\StationController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\TopUpHistoryController;
+use App\Http\Controllers\TicketInspectorController;
 use App\Http\Controllers\WalletTransactionController;
 
 require __DIR__ . '/settings.php';
@@ -42,4 +43,6 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
     Route::resource('top-up-history', TopUpHistoryController::class)->only(['index']);
     Route::post('top-up-history/${id}/approve', [TopUpHistoryController::class, 'approve'])->name('top-up-history.approve');
     Route::post('top-up-history/${id}/reject', [TopUpHistoryController::class, 'reject'])->name('top-up-history.reject');
+
+    Route::resource('stations', StationController::class);
 });
