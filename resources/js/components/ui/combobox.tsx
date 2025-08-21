@@ -23,14 +23,16 @@ type ComboboxProps = {
     title: string;
     comboboxOption: string;
     comboboxValue: string;
+    defaultValue ?: {station_title:string|number,station_id:string|number};
+    formSubmitted ?: boolean
 };
 
-export function Combobox({ getSelectedValue, title, comboboxOption, comboboxValue, routePath }: ComboboxProps) {
+export function Combobox({ getSelectedValue, formSubmitted, title, comboboxOption, comboboxValue, routePath, defaultValue: defaulValue }: ComboboxProps) {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState('');
     const [searchValue, setSearchValue] = React.useState('');
     const [loading, setLoading] = React.useState(false);
-    const [options, setOptions] = React.useState<ComboboxData>();
+    const [options, setOptions] = React.useState<ComboboxData>();        
 
     const getOptions = React.useCallback(
         (search: string) => {
@@ -45,7 +47,8 @@ export function Combobox({ getSelectedValue, title, comboboxOption, comboboxValu
             });
         },
         [comboboxOption, comboboxValue, searchValue, routePath],
-    );
+    );    
+
 
     const getMoreOptions = () => {
         if (loading) return;
@@ -76,13 +79,17 @@ export function Combobox({ getSelectedValue, title, comboboxOption, comboboxValu
     React.useEffect(() => {
         setValue('');
         getOptions(searchValue);
-    }, [searchValue, getOptions]);
+    }, [searchValue, getOptions,formSubmitted]);   
+    
+    
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger className="w-full" asChild>
                 <Button variant="outline" role="combobox" aria-expanded={open} className="justify-between">
-                    {value ? options?.data?.find((option) => option.option === value)?.option : `Select ${title}...`}
+                    {value ? options?.data?.find((option) => option.option === value)?.option : 
+                    defaulValue?.station_title ? defaulValue?.station_title:`Select ${title}...`
+                    }
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
             </PopoverTrigger>
@@ -102,7 +109,7 @@ export function Combobox({ getSelectedValue, title, comboboxOption, comboboxValu
                                         getSelectedValue(option.value.toString());
                                     }}
                                 >
-                                    <Check className={cn('mr-2 h-4 w-4', value === option.option ? 'opacity-100' : 'opacity-0')} />
+                                    <Check className={cn('mr-2 h-4 w-4', value === option.option ? 'opacity-100' : defaulValue?.station_title === option.option && value === '' ? 'opacity-100' : 'opacity-0')} />
                                     {option.option}
                                 </CommandItem>
                             ))}

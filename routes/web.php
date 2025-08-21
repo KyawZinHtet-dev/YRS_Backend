@@ -3,12 +3,14 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RouteController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\TopUpHistoryController;
 use App\Http\Controllers\TicketInspectorController;
 use App\Http\Controllers\WalletTransactionController;
+use App\Models\Station;
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
@@ -44,5 +46,8 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
     Route::post('top-up-history/${id}/approve', [TopUpHistoryController::class, 'approve'])->name('top-up-history.approve');
     Route::post('top-up-history/${id}/reject', [TopUpHistoryController::class, 'reject'])->name('top-up-history.reject');
 
-    Route::resource('stations', StationController::class);
+    Route::resource('stations', StationController::class)->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('routes', RouteController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('routes/combobox', [RouteController::class, 'combobox'])->name('routes.combobox');
 });

@@ -106,7 +106,11 @@ const StationForm = ({ station, mode, setDialogOpen }: StationFormProps) => {
                         />
                         <InputError message={errors.location} />
                         <div className="border-secondary rounded-sm border-4">
-                            <LeafletMap centerPosition={latLngPosition} setLatLngPosition={setLatLngPosition} latLngPosition={latLngPosition} />
+                            <LeafletMap
+                                centerPosition={latLngPosition}
+                                setLatLngPosition={setLatLngPosition}
+                                data={[{ title: data.title ? data.title : '', latLngPosition: latLngPosition }]}
+                            />
                         </div>
                     </div>
                 </div>
