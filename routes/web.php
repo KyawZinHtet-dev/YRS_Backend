@@ -9,8 +9,8 @@ use App\Http\Controllers\StationController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\TopUpHistoryController;
 use App\Http\Controllers\TicketInspectorController;
+use App\Http\Controllers\TicketPricingController;
 use App\Http\Controllers\WalletTransactionController;
-use App\Models\Station;
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
@@ -50,4 +50,6 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
 
     Route::resource('routes', RouteController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::get('routes/combobox', [RouteController::class, 'combobox'])->name('routes.combobox');
+
+    Route::resource('ticket-pricings', TicketPricingController::class)->only(['index', 'store', 'update', 'destroy']);
 });

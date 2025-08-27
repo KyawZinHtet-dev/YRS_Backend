@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookUser, CalendarArrowUp, LayoutGrid, ShieldUser, TrainFront, TrainTrack, Users, Wallet, WalletCards } from 'lucide-react';
+import { BookUser, CalendarArrowUp, LayoutGrid, ShieldUser, Ticket, TrainFront, TrainTrack, Users, Wallet, WalletCards } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -23,6 +23,11 @@ const mainNavItems: NavItem[] = [
         icon: TrainTrack,
     },
     {
+        title: 'Users',
+        href: '/users',
+        icon: Users,
+    },
+    {
         title: 'Admin Users',
         href: '/admin-users',
         icon: ShieldUser,
@@ -33,9 +38,9 @@ const mainNavItems: NavItem[] = [
         icon: BookUser,
     },
     {
-        title: 'Users',
-        href: '/users',
-        icon: Users,
+        title: 'Ticket Pricings',
+        href: '/ticket-pricings',
+        icon: Ticket,
     },
     {
         title: 'Wallets',
