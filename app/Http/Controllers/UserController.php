@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Http\Controllers;
+
+
+
+use App\Http\Requests\User\UserUpdateRequest;
+use App\Http\Requests\User\UserStoreRequest;
+use App\Repositories\UserRepository;
+use App\Repositories\WalletRepository;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    protected $userRepository;
+    protected $walletRepository;
+    public function __construct(UserRepository $userRepository, WalletRepository $walletRepository)
+    {
+        $this->userRepository = $userRepository;
+        $this->walletRepository = $walletRepository;
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $users = $this->userRepository->dataTable($request);
+        return inertia('users/index', ['users' => $users]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(UserStoreRequest $request)
+    {
+        try {
+            $user = $this->userRepository->create($request->all());
+            $this->walletRepository->firstOrCreate(['user_id' => $user->id], ['balance' => 0]);
+
+            return back()->with('response', ['status' => 'success', 'message' => 'User created successfully']);
+        } catch (\Exception $e) {
+            return back()->with('response', ['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UserUpdateRequest $request, string $id)
+    {
+        try {
+            $this->userRepository->update($id, $request->all());
+            return back()->with('response', ['status' => 'success', 'message' => 'User updated successfully']);
+        } catch (\Exception $e) {
+            return back()->with('response', ['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        try {
+            $this->userRepository->delete($id);
+            return back()->with('response', ['status' => 'success', 'message' => 'User deleted successfully']);
+        } catch (\Exception $e) {
+            return back()->with('response', ['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+}

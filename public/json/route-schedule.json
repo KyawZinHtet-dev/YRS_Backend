@@ -1,0 +1,858 @@
+[
+    [
+        {
+            "route_id": 1,
+            "station_id": 25,
+            "time": "07:00"
+        },
+        {
+            "route_id": 1,
+            "station_id": 24,
+            "time": "07:05"
+        },
+        {
+            "route_id": 1,
+            "station_id": 23,
+            "time": "07:10"
+        },
+        {
+            "route_id": 1,
+            "station_id": 22,
+            "time": "07:15"
+        },
+        {
+            "route_id": 1,
+            "station_id": 21,
+            "time": "07:20"
+        },
+        {
+            "route_id": 1,
+            "station_id": 20,
+            "time": "07:25"
+        },
+        {
+            "route_id": 1,
+            "station_id": 19,
+            "time": "07:30"
+        },
+        {
+            "route_id": 1,
+            "station_id": 18,
+            "time": "07:35"
+        },
+        {
+            "route_id": 1,
+            "station_id": 17,
+            "time": "07:40"
+        },
+        {
+            "route_id": 1,
+            "station_id": 16,
+            "time": "07:45"
+        },
+        {
+            "route_id": 1,
+            "station_id": 15,
+            "time": "07:50"
+        },
+        {
+            "route_id": 1,
+            "station_id": 14,
+            "time": "07:55"
+        },
+        {
+            "route_id": 1,
+            "station_id": 13,
+            "time": "08:00"
+        },
+        {
+            "route_id": 1,
+            "station_id": 12,
+            "time": "08:05"
+        },
+        {
+            "route_id": 1,
+            "station_id": 11,
+            "time": "08:10"
+        },
+        {
+            "route_id": 1,
+            "station_id": 10,
+            "time": "08:15"
+        },
+        {
+            "route_id": 1,
+            "station_id": 9,
+            "time": "08:20"
+        },
+        {
+            "route_id": 1,
+            "station_id": 8,
+            "time": "08:25"
+        },
+        {
+            "route_id": 1,
+            "station_id": 7,
+            "time": "08:30"
+        },
+        {
+            "route_id": 1,
+            "station_id": 6,
+            "time": "08:35"
+        },
+        {
+            "route_id": 1,
+            "station_id": 5,
+            "time": "08:40"
+        },
+        {
+            "route_id": 1,
+            "station_id": 4,
+            "time": "08:45"
+        },
+        {
+            "route_id": 1,
+            "station_id": 3,
+            "time": "08:50"
+        },
+        {
+            "route_id": 1,
+            "station_id": 2,
+            "time": "08:55"
+        },
+        {
+            "route_id": 1,
+            "station_id": 1,
+            "time": "09:00"
+        }
+    ],
+    [
+        {
+            "route_id": 2,
+            "station_id": 17,
+            "time": "08:00"
+        },
+        {
+            "route_id": 2,
+            "station_id": 16,
+            "time": "08:05"
+        },
+        {
+            "route_id": 2,
+            "station_id": 15,
+            "time": "08:10"
+        },
+        {
+            "route_id": 2,
+            "station_id": 14,
+            "time": "08:15"
+        },
+        {
+            "route_id": 2,
+            "station_id": 13,
+            "time": "08:20"
+        },
+        {
+            "route_id": 2,
+            "station_id": 12,
+            "time": "08:25"
+        },
+        {
+            "route_id": 2,
+            "station_id": 11,
+            "time": "08:30"
+        },
+        {
+            "route_id": 2,
+            "station_id": 10,
+            "time": "08:35"
+        },
+        {
+            "route_id": 2,
+            "station_id": 9,
+            "time": "08:40"
+        },
+        {
+            "route_id": 2,
+            "station_id": 8,
+            "time": "08:45"
+        },
+        {
+            "route_id": 2,
+            "station_id": 7,
+            "time": "08:50"
+        },
+        {
+            "route_id": 2,
+            "station_id": 6,
+            "time": "08:55"
+        },
+        {
+            "route_id": 2,
+            "station_id": 5,
+            "time": "09:00"
+        },
+        {
+            "route_id": 2,
+            "station_id": 4,
+            "time": "09:05"
+        },
+        {
+            "route_id": 2,
+            "station_id": 3,
+            "time": "09:10"
+        },
+        {
+            "route_id": 2,
+            "station_id": 2,
+            "time": "09:15"
+        },
+        {
+            "route_id": 2,
+            "station_id": 1,
+            "time": "09:20"
+        }
+    ],
+    [
+        {
+            "route_id": 3,
+            "station_id": 17,
+            "time": "10:00"
+        },
+        {
+            "route_id": 3,
+            "station_id": 16,
+            "time": "10:05"
+        },
+        {
+            "route_id": 3,
+            "station_id": 15,
+            "time": "10:10"
+        },
+        {
+            "route_id": 3,
+            "station_id": 14,
+            "time": "10:15"
+        },
+        {
+            "route_id": 3,
+            "station_id": 13,
+            "time": "10:20"
+        },
+        {
+            "route_id": 3,
+            "station_id": 12,
+            "time": "10:25"
+        },
+        {
+            "route_id": 3,
+            "station_id": 11,
+            "time": "10:30"
+        },
+        {
+            "route_id": 3,
+            "station_id": 10,
+            "time": "10:35"
+        },
+        {
+            "route_id": 3,
+            "station_id": 9,
+            "time": "10:40"
+        },
+        {
+            "route_id": 3,
+            "station_id": 8,
+            "time": "10:45"
+        },
+        {
+            "route_id": 3,
+            "station_id": 7,
+            "time": "10:50"
+        },
+        {
+            "route_id": 3,
+            "station_id": 6,
+            "time": "10:55"
+        },
+        {
+            "route_id": 3,
+            "station_id": 5,
+            "time": "11:00"
+        },
+        {
+            "route_id": 3,
+            "station_id": 4,
+            "time": "11:05"
+        },
+        {
+            "route_id": 3,
+            "station_id": 3,
+            "time": "11:10"
+        },
+        {
+            "route_id": 3,
+            "station_id": 2,
+            "time": "11:15"
+        },
+        {
+            "route_id": 3,
+            "station_id": 1,
+            "time": "11:20"
+        }
+    ],
+    [
+        {
+            "route_id": 4,
+            "station_id": 17,
+            "time": "14:00"
+        },
+        {
+            "route_id": 4,
+            "station_id": 16,
+            "time": "14:05"
+        },
+        {
+            "route_id": 4,
+            "station_id": 15,
+            "time": "14:10"
+        },
+        {
+            "route_id": 4,
+            "station_id": 14,
+            "time": "14:15"
+        },
+        {
+            "route_id": 4,
+            "station_id": 13,
+            "time": "14:20"
+        },
+        {
+            "route_id": 4,
+            "station_id": 12,
+            "time": "14:25"
+        },
+        {
+            "route_id": 4,
+            "station_id": 11,
+            "time": "14:30"
+        },
+        {
+            "route_id": 4,
+            "station_id": 10,
+            "time": "14:35"
+        },
+        {
+            "route_id": 4,
+            "station_id": 9,
+            "time": "14:40"
+        },
+        {
+            "route_id": 4,
+            "station_id": 8,
+            "time": "14:45"
+        },
+        {
+            "route_id": 4,
+            "station_id": 7,
+            "time": "14:50"
+        },
+        {
+            "route_id": 4,
+            "station_id": 6,
+            "time": "14:55"
+        },
+        {
+            "route_id": 4,
+            "station_id": 5,
+            "time": "15:00"
+        },
+        {
+            "route_id": 4,
+            "station_id": 4,
+            "time": "15:05"
+        },
+        {
+            "route_id": 4,
+            "station_id": 3,
+            "time": "15:10"
+        },
+        {
+            "route_id": 4,
+            "station_id": 2,
+            "time": "15:15"
+        },
+        {
+            "route_id": 4,
+            "station_id": 1,
+            "time": "15:20"
+        }
+    ],
+    [
+        {
+            "route_id": 5,
+            "station_id": 17,
+            "time": "16:00"
+        },
+        {
+            "route_id": 5,
+            "station_id": 16,
+            "time": "16:05"
+        },
+        {
+            "route_id": 5,
+            "station_id": 15,
+            "time": "16:10"
+        },
+        {
+            "route_id": 5,
+            "station_id": 14,
+            "time": "16:15"
+        },
+        {
+            "route_id": 5,
+            "station_id": 13,
+            "time": "16:20"
+        },
+        {
+            "route_id": 5,
+            "station_id": 12,
+            "time": "16:25"
+        },
+        {
+            "route_id": 5,
+            "station_id": 11,
+            "time": "16:30"
+        },
+        {
+            "route_id": 5,
+            "station_id": 10,
+            "time": "16:35"
+        },
+        {
+            "route_id": 5,
+            "station_id": 9,
+            "time": "16:40"
+        },
+        {
+            "route_id": 5,
+            "station_id": 8,
+            "time": "16:45"
+        },
+        {
+            "route_id": 5,
+            "station_id": 7,
+            "time": "16:50"
+        },
+        {
+            "route_id": 5,
+            "station_id": 6,
+            "time": "16:55"
+        },
+        {
+            "route_id": 5,
+            "station_id": 5,
+            "time": "17:00"
+        },
+        {
+            "route_id": 5,
+            "station_id": 4,
+            "time": "17:05"
+        },
+        {
+            "route_id": 5,
+            "station_id": 3,
+            "time": "17:10"
+        },
+        {
+            "route_id": 5,
+            "station_id": 2,
+            "time": "17:15"
+        },
+        {
+            "route_id": 5,
+            "station_id": 1,
+            "time": "17:20"
+        }
+    ],
+    [
+        {
+            "route_id": 6,
+            "station_id": 1,
+            "time": "06:00"
+        },
+        {
+            "route_id": 6,
+            "station_id": 2,
+            "time": "06:05"
+        },
+        {
+            "route_id": 6,
+            "station_id": 3,
+            "time": "06:10"
+        },
+        {
+            "route_id": 6,
+            "station_id": 4,
+            "time": "06:15"
+        },
+        {
+            "route_id": 6,
+            "station_id": 5,
+            "time": "06:20"
+        },
+        {
+            "route_id": 6,
+            "station_id": 6,
+            "time": "06:25"
+        },
+        {
+            "route_id": 6,
+            "station_id": 7,
+            "time": "06:30"
+        },
+        {
+            "route_id": 6,
+            "station_id": 8,
+            "time": "06:35"
+        },
+        {
+            "route_id": 6,
+            "station_id": 9,
+            "time": "06:40"
+        },
+        {
+            "route_id": 6,
+            "station_id": 10,
+            "time": "06:45"
+        },
+        {
+            "route_id": 6,
+            "station_id": 11,
+            "time": "06:50"
+        },
+        {
+            "route_id": 6,
+            "station_id": 12,
+            "time": "06:55"
+        },
+        {
+            "route_id": 6,
+            "station_id": 13,
+            "time": "07:00"
+        },
+        {
+            "route_id": 6,
+            "station_id": 14,
+            "time": "07:05"
+        },
+        {
+            "route_id": 6,
+            "station_id": 15,
+            "time": "07:10"
+        },
+        {
+            "route_id": 6,
+            "station_id": 16,
+            "time": "07:15"
+        },
+        {
+            "route_id": 6,
+            "station_id": 17,
+            "time": "07:20"
+        },
+        {
+            "route_id": 6,
+            "station_id": 18,
+            "time": "07:25"
+        },
+        {
+            "route_id": 6,
+            "station_id": 19,
+            "time": "07:30"
+        },
+        {
+            "route_id": 6,
+            "station_id": 20,
+            "time": "07:35"
+        },
+        {
+            "route_id": 6,
+            "station_id": 21,
+            "time": "07:40"
+        },
+        {
+            "route_id": 6,
+            "station_id": 22,
+            "time": "07:45"
+        },
+        {
+            "route_id": 6,
+            "station_id": 23,
+            "time": "07:50"
+        },
+        {
+            "route_id": 6,
+            "station_id": 24,
+            "time": "07:55"
+        },
+        {
+            "route_id": 6,
+            "station_id": 25,
+            "time": "08:00"
+        }
+    ],
+    [
+        {
+            "route_id": 7,
+            "station_id": 1,
+            "time": "09:00"
+        },
+        {
+            "route_id": 7,
+            "station_id": 2,
+            "time": "09:05"
+        },
+        {
+            "route_id": 7,
+            "station_id": 3,
+            "time": "09:10"
+        },
+        {
+            "route_id": 7,
+            "station_id": 4,
+            "time": "09:15"
+        },
+        {
+            "route_id": 7,
+            "station_id": 5,
+            "time": "09:20"
+        },
+        {
+            "route_id": 7,
+            "station_id": 6,
+            "time": "09:25"
+        },
+        {
+            "route_id": 7,
+            "station_id": 7,
+            "time": "09:30"
+        },
+        {
+            "route_id": 7,
+            "station_id": 8,
+            "time": "09:35"
+        },
+        {
+            "route_id": 7,
+            "station_id": 9,
+            "time": "09:40"
+        },
+        {
+            "route_id": 7,
+            "station_id": 10,
+            "time": "09:45"
+        },
+        {
+            "route_id": 7,
+            "station_id": 11,
+            "time": "09:50"
+        },
+        {
+            "route_id": 7,
+            "station_id": 12,
+            "time": "09:55"
+        },
+        {
+            "route_id": 7,
+            "station_id": 13,
+            "time": "10:00"
+        },
+        {
+            "route_id": 7,
+            "station_id": 14,
+            "time": "10:05"
+        },
+        {
+            "route_id": 7,
+            "station_id": 15,
+            "time": "10:10"
+        },
+        {
+            "route_id": 7,
+            "station_id": 16,
+            "time": "10:15"
+        },
+        {
+            "route_id": 7,
+            "station_id": 17,
+            "time": "10:20"
+        },
+        {
+            "route_id": 7,
+            "station_id": 18,
+            "time": "10:25"
+        },
+        {
+            "route_id": 7,
+            "station_id": 19,
+            "time": "10:30"
+        },
+        {
+            "route_id": 7,
+            "station_id": 20,
+            "time": "10:35"
+        },
+        {
+            "route_id": 7,
+            "station_id": 21,
+            "time": "10:40"
+        },
+        {
+            "route_id": 7,
+            "station_id": 22,
+            "time": "10:45"
+        },
+        {
+            "route_id": 7,
+            "station_id": 23,
+            "time": "10:50"
+        },
+        {
+            "route_id": 7,
+            "station_id": 24,
+            "time": "10:55"
+        },
+        {
+            "route_id": 7,
+            "station_id": 25,
+            "time": "11:00"
+        }
+    ],
+    [
+        {
+            "route_id": 8,
+            "station_id": 1,
+            "time": "15:00"
+        },
+        {
+            "route_id": 8,
+            "station_id": 2,
+            "time": "15:05"
+        },
+        {
+            "route_id": 8,
+            "station_id": 3,
+            "time": "15:10"
+        },
+        {
+            "route_id": 8,
+            "station_id": 4,
+            "time": "15:15"
+        },
+        {
+            "route_id": 8,
+            "station_id": 5,
+            "time": "15:20"
+        },
+        {
+            "route_id": 8,
+            "station_id": 6,
+            "time": "15:25"
+        },
+        {
+            "route_id": 8,
+            "station_id": 7,
+            "time": "15:30"
+        },
+        {
+            "route_id": 8,
+            "station_id": 8,
+            "time": "15:35"
+        },
+        {
+            "route_id": 8,
+            "station_id": 9,
+            "time": "15:40"
+        },
+        {
+            "route_id": 8,
+            "station_id": 10,
+            "time": "15:45"
+        },
+        {
+            "route_id": 8,
+            "station_id": 11,
+            "time": "15:50"
+        },
+        {
+            "route_id": 8,
+            "station_id": 12,
+            "time": "15:55"
+        },
+        {
+            "route_id": 8,
+            "station_id": 13,
+            "time": "16:00"
+        },
+        {
+            "route_id": 8,
+            "station_id": 14,
+            "time": "16:05"
+        },
+        {
+            "route_id": 8,
+            "station_id": 15,
+            "time": "16:10"
+        },
+        {
+            "route_id": 8,
+            "station_id": 16,
+            "time": "16:15"
+        },
+        {
+            "route_id": 8,
+            "station_id": 17,
+            "time": "16:20"
+        },
+        {
+            "route_id": 8,
+            "station_id": 18,
+            "time": "16:25"
+        },
+        {
+            "route_id": 8,
+            "station_id": 19,
+            "time": "16:30"
+        },
+        {
+            "route_id": 8,
+            "station_id": 20,
+            "time": "16:35"
+        },
+        {
+            "route_id": 8,
+            "station_id": 21,
+            "time": "16:40"
+        },
+        {
+            "route_id": 8,
+            "station_id": 22,
+            "time": "16:45"
+        },
+        {
+            "route_id": 8,
+            "station_id": 23,
+            "time": "16:50"
+        },
+        {
+            "route_id": 8,
+            "station_id": 24,
+            "time": "16:55"
+        },
+        {
+            "route_id": 8,
+            "station_id": 25,
+            "time": "17:00"
+        }
+    ]
+]

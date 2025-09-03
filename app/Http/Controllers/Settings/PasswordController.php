@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -30,10 +31,14 @@ class PasswordController extends Controller
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
-        $request->user()->update([
-            'password' => Hash::make($validated['password']),
-        ]);
+        try {
+            $request->user()->update([
+                'password' => Hash::make($validated['password']),
+            ]);
 
-        return back();
+            return back()->with('response', ['status' => 'success', 'message' => 'Password updated successfully']);
+        } catch (Exception $e) {
+            return back()->with('response', ['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }

@@ -8,6 +8,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+    --breakpoint-xs: 30rem;
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
@@ -24,7 +25,7 @@
     --color-popover: var(--popover);
     --color-popover-foreground: var(--popover-foreground);
 
-    --color-primary: var(--primary);
+    --color-primary: #3cbc9b;
     --color-primary-foreground: var(--primary-foreground);
 
     --color-secondary: var(--secondary);
@@ -153,6 +154,19 @@
         @apply border-border;
     }
 
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+/*
+  ---break---
+*/
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
     body {
         @apply bg-background text-foreground;
     }

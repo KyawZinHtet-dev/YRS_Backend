@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { LayoutGrid, Users } from 'lucide-react';
+import { BookUser, CalendarArrowUp, LayoutGrid, ShieldUser, Tag, Ticket, TrainFront, TrainTrack, Users, Wallet, WalletCards } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -13,9 +13,54 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
+        title: 'Stations',
+        href: '/stations',
+        icon: TrainFront,
+    },
+    {
+        title: 'Routes',
+        href: '/routes',
+        icon: TrainTrack,
+    },
+    {
         title: 'Users',
         href: '/users',
         icon: Users,
+    },
+    {
+        title: 'Admin Users',
+        href: '/admin-users',
+        icon: ShieldUser,
+    },
+    {
+        title: 'Ticket Inspectors',
+        href: '/ticket-inspectors',
+        icon: BookUser,
+    },
+    {
+        title: 'Ticket Pricings',
+        href: '/ticket-pricings',
+        icon: Tag,
+    },
+    {
+        title: 'Tickets',
+        href: '/tickets',
+        icon: Ticket,
+    },
+    {
+        title: 'Wallets',
+        href: '/wallets',
+        icon: Wallet,
+    },
+    {
+        title: 'Transactions',
+        href: '/wallet-transactions',
+        icon: WalletCards,
+    },
+    {
+        title: 'Top Up History',
+        href: '/top-up-history',
+        icon: CalendarArrowUp,
     },
 ];
 
