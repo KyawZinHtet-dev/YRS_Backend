@@ -242,13 +242,19 @@ export const columns: ColumnDef<Route>[] = [
         },
     },
     {
-        accessorKey: 'Direction',
-        header: () => <div className="text-center">Direciton</div>,
+        accessorKey: 'direction',
+        header: ({ column }) => {
+            return (
+                <div className="ml-3">
+                    <DataTableColumnHeader routePath="routes.index" column={column} title="Direction" />
+                </div>
+            );
+        },
         cell: ({ row }) => {
             return (
                 <div
                     className={cn(
-                        'text-center capitalize',
+                        'ml-3 capitalize',
                         row.original.direction === 'clockwise' && 'text-green-500',
                         row.original.direction === 'anticlockwise' && 'text-red-500',
                     )}

@@ -7,6 +7,7 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TopUpHistoryController;
 use App\Http\Controllers\TicketInspectorController;
 use App\Http\Controllers\TicketPricingController;
@@ -52,4 +53,6 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
     Route::get('routes/combobox', [RouteController::class, 'combobox'])->name('routes.combobox');
 
     Route::resource('ticket-pricings', TicketPricingController::class)->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('tickets', TicketController::class)->only(['index']);
 });

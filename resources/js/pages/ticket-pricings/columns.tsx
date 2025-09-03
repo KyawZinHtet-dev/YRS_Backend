@@ -122,7 +122,7 @@ export const columns: ColumnDef<TicketPricing>[] = [
         },
         cell: ({ row }) => {
             return (
-                <div className={cn('ml-3 capitalize', row.original.type === 'one_time_ticket' ? 'text-green-600' : 'text-amber-600')}>
+                <div className={cn('ml-3 capitalize', row.original.type === 'one_time_ticket' ? 'text-sky-600' : 'text-amber-600')}>
                     {row.original.type.replaceAll('_', ' ')}
                 </div>
             );

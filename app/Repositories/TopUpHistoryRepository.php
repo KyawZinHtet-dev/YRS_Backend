@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\TopUpHistory;
-use App\Models\WalletTransaction;
 use App\Repositories\Contracts\BaseRepository;
 use App\Services\WalletService;
 use Illuminate\Http\Request;
