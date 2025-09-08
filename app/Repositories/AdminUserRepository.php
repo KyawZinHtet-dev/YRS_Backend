@@ -53,7 +53,7 @@ class AdminUserRepository implements BaseRepository
         $admin_user->update([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => $data['password'] ? Hash::make($data['password']) : $admin_user->password,
+            'password' => $data['password'] ? $data['password'] : $admin_user->password,
             'updated_at' => now(),
         ]);
         return $admin_user;

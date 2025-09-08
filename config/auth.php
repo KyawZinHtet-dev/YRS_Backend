@@ -48,6 +48,14 @@ return [
             'driver' => 'session',
             'provider' => 'admin_users',
         ],
+        'user_api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+        'ticket_inspector_api' => [
+            'driver' => 'sanctum',
+            'provider' => 'ticket_inspectors',
+        ],
     ],
 
     /*
@@ -76,6 +84,11 @@ return [
         'admin_users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\AdminUser::class),
+        ],
+
+        'ticket_inspectors' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\TicketInspector::class),
         ],
     ],
 

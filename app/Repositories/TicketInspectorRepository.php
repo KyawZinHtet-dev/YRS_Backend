@@ -53,7 +53,7 @@ class TicketInspectorRepository implements BaseRepository
         $ticket_inspector->update([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => $data['password'] ? Hash::make($data['password']) : $ticket_inspector->password,
+            'password' => $data['password'] ? $data['password'] : $ticket_inspector->password,
             'updated_at' => now(),
         ]);
         return $ticket_inspector;
