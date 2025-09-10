@@ -13,5 +13,6 @@ Route::post('resend-otp', [AuthController::class, 'resendOtp']);
 
 Route::middleware('auth:user_api')->group(function () {
     Route::get('profile', [ProfileController::class, 'profile']);
+    Route::post('change-password', [ProfileController::class, 'changePassword']);
     Route::post('logout', [AuthController::class, 'logout']);
 });
