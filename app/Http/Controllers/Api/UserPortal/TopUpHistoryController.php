@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Api\UserPortal;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserPortal\WalletTransactionDetailResource;
-use App\Http\Resources\UserPortal\WalletTransactionResource;
-use App\Repositories\WalletTransactionRepository;
-use App\Services\ResponseService;
+use App\Http\Resources\UserPortal\TopUpHistoryDetailResource;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserPortal\TopUpHistoryResource;
+use App\Repositories\TopUpHistoryRepository;
+use App\Services\ResponseService;
 
-class WalletTransactionController extends Controller
+class TopUpHistoryController extends Controller
 {
-    public function __construct(protected WalletTransactionRepository $walletTransactionRepository) {}
+    public function __construct(protected TopUpHistoryRepository $topUpHistoryRepository) {}
 
     public function index(Request $request)
     {
         $user = auth('user_api')->user();
-        $wallet_transactions = $this->walletTransactionRepository->queryByUser($user)
+        $top_up_histories = $this->topUpHistoryRepository->queryByUser($user)
             ->orderBy('updated_at', 'desc')
             ->when($request->has('search'), function ($q) use ($request) {
                 $q->where(function ($q) use ($request) {
@@ -25,8 +25,8 @@ class WalletTransactionController extends Controller
                         ->orWhere('created_at', 'like', '%' . $request->search . '%');
                 });
             })
-            ->paginate(10);
-        return WalletTransactionResource::collection($wallet_transactions)->additional([
+            ->paginate(10);;
+        return TopUpHistoryResource::collection($top_up_histories)->additional([
             'message' => 'success',
         ]);
     }
@@ -34,10 +34,10 @@ class WalletTransactionController extends Controller
     public function show($trx_id)
     {
         $user = auth('user_api')->user();
-        $wallet_transaction = $this->walletTransactionRepository->queryByUser($user)
-            ->with(['user:id,name,email', 'sourceable'])
+        $top_up_history = $this->topUpHistoryRepository->queryByUser($user)
+            ->with(['user:id,name,email'])
             ->where('transaction_id', $trx_id)
             ->firstOrFail();
-        return ResponseService::success(data: new WalletTransactionDetailResource($wallet_transaction), message: 'success');
+        return ResponseService::success(data: new TopUpHistoryDetailResource($top_up_history), message: 'success');
     }
 }

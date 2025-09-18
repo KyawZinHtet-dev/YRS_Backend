@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Wallet::class, 'user_id', 'id');
     }
+
+    public function walletTransaction()
+    {
+        return $this->hasMany(WalletTransaction::class, 'user_id', 'id');
+    }
 }
