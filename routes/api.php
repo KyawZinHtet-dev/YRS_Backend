@@ -2,10 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\StationController;
 
-Route::get('/test', function (Request $request) {
-    return response()->json([
-        'success' => true,
-        'message' => 'Hello From Public API',
-    ]);
-});
+Route::get('stations', [StationController::class, 'index']);
+Route::get('stations/{slug}', [StationController::class, 'show']);
