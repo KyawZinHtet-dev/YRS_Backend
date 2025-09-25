@@ -6,3 +6,4 @@ use App\Http\Controllers\Api\StationController;
 
 Route::get('stations', [StationController::class, 'index']);
 Route::get('stations/{slug}', [StationController::class, 'show']);
+Route::get('stations-by-region', [StationController::class, 'stationsByRegion']);

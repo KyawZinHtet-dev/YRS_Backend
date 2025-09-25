@@ -36,4 +36,16 @@ class StationController extends Controller
             ->firstOrFail();
         return ResponseService::success(data: new StationDetailResource($station), message: 'success');
     }
+
+    public function stationsByRegion(Request $request)
+    {
+        $stations = $this->stationRepository->query()
+            ->whereBetween('latitude', [$request->south_west_latitude, $request->north_east_latitude])
+            ->whereBetween('longitude', [$request->south_west_longitude, $request->north_east_longitude])
+            ->take(20)
+            ->get();
+        return StationResource::collection($stations)->additional([
+            'message' => 'success',
+        ]);
+    }
 }
