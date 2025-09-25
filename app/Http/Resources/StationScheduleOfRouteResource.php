@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RouteScheduleOfStationResource extends JsonResource
+class StationScheduleOfRouteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,6 +19,8 @@ class RouteScheduleOfStationResource extends JsonResource
             'slug' => $this->slug,
             'title' => $this->title,
             'time' => Carbon::parse($this->pivot->time)->format('h:i A'),
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude
         ];
     }
 }

@@ -20,8 +20,8 @@ class StationDetailResource extends JsonResource
             'description' => $this->description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'clockwise_schedules' => RouteScheduleOfStationResource::collection($this->routes->where('direction', 'clockwise')),
-            'anticlockwise_schedules' => RouteScheduleOfStationResource::collection($this->routes->where('direction', 'anticlockwise')),
+            'clockwise_route_schedules' => RouteScheduleOfStationResource::collection($this->routes->where('direction', 'clockwise')),
+            'anticlockwise_route_schedules' => RouteScheduleOfStationResource::collection($this->routes->where('direction', 'anticlockwise')),
         ];
     }
 }

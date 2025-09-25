@@ -16,7 +16,6 @@ class StationController extends Controller
     public function index(Request $request)
     {
         $stations = $this->stationRepository->query()
-            ->orderBy('updated_at', 'desc')
             ->when($request->has('search'), function ($q) use ($request) {
                 $q->where(function ($q) use ($request) {
                     return $q->where('title', 'like', '%' . $request->search . '%')
