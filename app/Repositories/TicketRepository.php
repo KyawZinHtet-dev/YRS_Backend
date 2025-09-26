@@ -30,6 +30,11 @@ class TicketRepository implements BaseRepository
             ->paginate($request->has('paginate') ? $request->paginate : 5)->appends($request->all());
     }
 
+    public function queryByUser($user)
+    {
+        return $this->model->where('user_id', $user->id);
+    }
+
     public function all() {}
 
     public function find($id) {}

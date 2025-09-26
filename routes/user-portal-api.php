@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserPortal\AuthController;
 use App\Http\Controllers\Api\UserPortal\TopUpController;
 use App\Http\Controllers\Api\UserPortal\ProfileController;
+use App\Http\Controllers\Api\UserPortal\TicketController;
 use App\Http\Controllers\Api\UserPortal\TopUpHistoryController;
 use App\Http\Controllers\Api\UserPortal\WalletTransactionController;
 
@@ -27,4 +28,8 @@ Route::middleware(['auth:user_api', 'verified'])->group(function () {
 
     // Top Up
     Route::post('top-up', [TopUpController::class, 'store']);
+
+    // Ticket
+    Route::get('tickets', [TicketController::class, 'index']);
+    Route::get('tickets/{ticket_number}', [TicketController::class, 'show']);
 });
