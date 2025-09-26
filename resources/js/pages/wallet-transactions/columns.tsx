@@ -19,7 +19,7 @@ export type WalletTransaction = {
     wallet_id: number;
     amount: number;
     description: string;
-    type: 'Manual' | 'Top Up' | 'Buy Ticket';
+    type: 'manual' | 'top_up' | 'buy_ticket';
     method: 'add' | 'reduce';
     sourceable_id: number;
     sourceable_type: string;
@@ -82,14 +82,14 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                                     <Badge
                                         className={cn(
                                             {
-                                                'bg-sky-500 dark:bg-sky-600': data.type === 'Manual',
-                                                'bg-purple-500 dark:bg-purple-600': data.type === 'Top Up',
-                                                'bg-amber-500 dark:bg-amber-600': data.type === 'Buy Ticket',
+                                                'bg-sky-500 dark:bg-sky-600': data.type === 'manual',
+                                                'bg-purple-500 dark:bg-purple-600': data.type === 'top_up',
+                                                'bg-amber-500 dark:bg-amber-600': data.type === 'buy_ticket',
                                             },
-                                            'w-[80px]',
+                                            'w-[100px] capitalize',
                                         )}
                                     >
-                                        {data.type}
+                                        {data.type.replace('_', ' ')}
                                     </Badge>
                                 ) : (
                                     <p className="text-sm">{data.user_email}</p>
@@ -103,14 +103,14 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                                     <Badge
                                         className={cn(
                                             {
-                                                'bg-sky-500 dark:bg-sky-600': data.type === 'Manual',
-                                                'bg-purple-500 dark:bg-purple-600': data.type === 'Top Up',
-                                                'bg-amber-500 dark:bg-amber-600': data.type === 'Buy Ticket',
+                                                'bg-sky-500 dark:bg-sky-600': data.type === 'manual',
+                                                'bg-purple-500 dark:bg-purple-600': data.type === 'top_up',
+                                                'bg-amber-500 dark:bg-amber-600': data.type === 'buy_ticket',
                                             },
-                                            'w-[80px]',
+                                            'w-[100px] capitalize',
                                         )}
                                     >
-                                        {data.type}
+                                        {data.type.replace('_', ' ')}
                                     </Badge>
                                 )}
                             </div>
@@ -119,14 +119,14 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                                 <Badge
                                     className={cn(
                                         {
-                                            'bg-sky-500 dark:bg-sky-600': data.type === 'Manual',
-                                            'bg-purple-500 dark:bg-purple-600': data.type === 'Top Up',
-                                            'bg-amber-500 dark:bg-amber-600': data.type === 'Buy Ticket',
+                                            'bg-sky-500 dark:bg-sky-600': data.type === 'manual',
+                                            'bg-purple-500 dark:bg-purple-600': data.type === 'top_up',
+                                            'bg-amber-500 dark:bg-amber-600': data.type === 'buy_ticket',
                                         },
-                                        'w-[80px]',
+                                        'w-[100px] capitalize',
                                     )}
                                 >
-                                    {data.type}
+                                    {data.type.replace('_', ' ')}
                                 </Badge>
                             </div>
                             <div className="flex items-center justify-between">
@@ -205,14 +205,14 @@ export const columns: ColumnDef<WalletTransaction>[] = [
                     <Badge
                         className={cn(
                             {
-                                'bg-sky-500 dark:bg-sky-600': row.original.type === 'Manual',
-                                'bg-purple-500 dark:bg-purple-600': row.original.type === 'Top Up',
-                                'bg-amber-500 dark:bg-amber-600': row.original.type === 'Buy Ticket',
+                                'bg-sky-500 dark:bg-sky-600': row.original.type === 'manual',
+                                'bg-purple-500 dark:bg-purple-600': row.original.type === 'top_up',
+                                'bg-amber-500 dark:bg-amber-600': row.original.type === 'buy_ticket',
                             },
-                            'w-[80px] text-center',
+                            'w-full text-center capitalize',
                         )}
                     >
-                        {row.original.type}
+                        {row.original.type.replace('_', ' ')}
                     </Badge>
                 </div>
             );
