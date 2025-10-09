@@ -126,7 +126,7 @@ export const columns: ColumnDef<Ticket>[] = [
         },
         cell: ({ row }) => {
             return (
-                <div className={cn('my-1.5 ml-3 capitalize', row.original.type === 'one_time_ticket' ? 'text-sky-600' : 'text-amber-600')}>
+                <div className={cn('my-1.5 ml-3 capitalize', row.original.type === 'one_time_ticket' ? 'text-primary' : 'text-amber-600')}>
                     {row.original.type.replaceAll('_', ' ')}
                 </div>
             );
@@ -148,6 +148,7 @@ export const columns: ColumnDef<Ticket>[] = [
                         'ml-3 capitalize',
                         row.original.direction === 'clockwise' && 'text-green-500',
                         row.original.direction === 'anticlockwise' && 'text-red-500',
+                        row.original.direction === 'both' && 'text-amber-500',
                     )}
                 >
                     {row.original.direction}

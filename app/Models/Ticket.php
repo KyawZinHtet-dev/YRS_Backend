@@ -35,7 +35,7 @@ class Ticket extends Model
                 switch ($attributes['type']) {
                     case 'one_time_ticket':
                         $text = 'One Time Ticket';
-                        $color = 'text-sky-600';
+                        $color = 'text-primary';
                         $icon = asset('storage/images/one-time-ticket.png');
                         break;
                     case 'one_month_ticket':
@@ -70,6 +70,10 @@ class Ticket extends Model
                     case 'anticlockwise':
                         $text = 'Anticlockwise';
                         $color = 'text-red-500';
+                        break;
+                    case 'both':
+                        $text = 'Both';
+                        $color = 'text-amber-500';
                         break;
                     default:
                         $text = '';

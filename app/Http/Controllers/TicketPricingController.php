@@ -30,6 +30,7 @@ class TicketPricingController extends Controller
         try {
             $this->ticketPricingRepository->create([
                 'type' => $request->type,
+                'direction' => $request->direction,
                 'price' => $request->price,
                 'offer_quantity' => $request->offer_quantity,
                 'remain_quantity' => $request->offer_quantity,
@@ -51,6 +52,7 @@ class TicketPricingController extends Controller
         try {
             $this->ticketPricingRepository->update($id, [
                 'type' => $request->type,
+                'direction' => $request->direction,
                 'price' => $request->price,
                 'offer_quantity' => $request->offer_quantity,
                 'remain_quantity' => $request->offer_quantity,
