@@ -4,6 +4,7 @@ import { DataTableColumnHeader } from '@/components/datatable/column-header';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import moment from 'moment';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -44,14 +45,27 @@ const ViewDetailDialog = ({ data }: { data: Ticket }) => {
                     </div>
                     <div className="flex items-center justify-between">
                         <p className="font-medium">Type</p>
-                        <p className={cn('text-sm capitalize', data.type === 'one_time_ticket' ? 'text-sky-600' : 'text-amber-600')}>
+                        <p
+                            className={cn(
+                                'text-sm capitalize',
+                                data.type === 'one_time_ticket' && 'text-primary',
+                                data.type === 'one_month_ticket' && 'text-amber-500',
+                            )}
+                        >
                             {' '}
                             {data.type.replaceAll('_', ' ')}
                         </p>
                     </div>
                     <div className="flex items-center justify-between">
                         <p className="font-medium">Direction</p>
-                        <p className={cn('text-sm capitalize', data.direction === 'clockwise' ? 'text-green-500' : 'text-red-500')}>
+                        <p
+                            className={cn(
+                                'text-sm capitalize',
+                                data.direction === 'clockwise' && 'text-green-500',
+                                data.direction === 'anticlockwise' && 'text-red-500',
+                                data.direction === 'both' && 'text-amber-500',
+                            )}
+                        >
                             {' '}
                             {data.direction}
                         </p>
@@ -68,19 +82,19 @@ const ViewDetailDialog = ({ data }: { data: Ticket }) => {
                     </div>
                     <div className="flex items-center justify-between">
                         <p className="font-medium">Valid At</p>
-                        <p className="text-sm"> {new Date(data.valid_at).toLocaleString()}</p>
+                        <p className="text-sm"> {moment(data.valid_at).format('DD/MM/YYYY hh:mm A')}</p>
                     </div>
                     <div className="flex items-center justify-between">
                         <p className="font-medium">Expired At</p>
-                        <p className="text-sm"> {new Date(data.expired_at).toLocaleString()}</p>
+                        <p className="text-sm"> {moment(data.expired_at).format('DD/MM/YYYY hh:mm A')}</p>
                     </div>
                     <div className="flex items-center justify-between">
                         <p className="font-medium">Created At:</p>
-                        <p className="text-sm"> {new Date(data.created_at).toLocaleString()}</p>
+                        <p className="text-sm"> {moment(data.created_at).format('DD/MM/YYYY hh:mm A')}</p>
                     </div>
                     <div className="flex items-center justify-between">
                         <p className="font-medium">Updated At:</p>
-                        <p className="text-sm"> {new Date(data.updated_at).toLocaleString()}</p>
+                        <p className="text-sm"> {moment(data.updated_at).format('DD/MM/YYYY hh:mm A')}</p>
                     </div>
                 </div>
             </DialogContent>
@@ -184,9 +198,7 @@ export const columns: ColumnDef<Ticket>[] = [
             );
         },
         cell: ({ row }) => {
-            const valid_at = row.original.valid_at;
-            const date = new Date(valid_at);
-            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{moment(row.original.valid_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
 
@@ -200,9 +212,7 @@ export const columns: ColumnDef<Ticket>[] = [
             );
         },
         cell: ({ row }) => {
-            const expired_at = row.original.expired_at;
-            const date = new Date(expired_at);
-            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{moment(row.original.expired_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     // {

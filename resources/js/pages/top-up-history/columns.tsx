@@ -16,6 +16,7 @@ import {
 import { MorphingDialogBasicImage } from '@/components/ui/morphing-dialog-basic-image';
 import { cn } from '@/lib/utils';
 import { router } from '@inertiajs/react';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 
 // This type is used to define the shape of our data.
@@ -76,19 +77,19 @@ const ViewDetailDialog = ({ data }: { data: TopUpHistory }) => {
                         </div>
                         <div className="flex items-center justify-between">
                             <p className="font-medium">Approved At:</p>
-                            <p className="text-sm"> {data.approved_at ? new Date(data.approved_at).toLocaleString() : '-'}</p>
+                            <p className="text-sm"> {data.approved_at ? moment(data.approved_at).format('DD/MM/YYYY hh:mm A') : '-'}</p>
                         </div>
                         <div className="flex items-center justify-between">
                             <p className="font-medium">Rejected At:</p>
-                            <p className="text-sm"> {data.rejected_at ? new Date(data.rejected_at).toLocaleString() : '-'}</p>
+                            <p className="text-sm"> {data.rejected_at ? moment(data.rejected_at).format('DD/MM/YYYY hh:mm A') : '-'}</p>
                         </div>
                         <div className="flex items-center justify-between">
                             <p className="font-medium">Created At:</p>
-                            <p className="text-sm"> {new Date(data.created_at).toLocaleString()}</p>
+                            <p className="text-sm"> {moment(data.created_at).format('DD/MM/YYYY hh:mm A')}</p>
                         </div>
                         <div className="flex items-center justify-between">
                             <p className="font-medium">Updated At:</p>
-                            <p className="text-sm"> {new Date(data.updated_at).toLocaleString()}</p>
+                            <p className="text-sm"> {moment(data.updated_at).format('DD/MM/YYYY hh:mm A')}</p>
                         </div>
                     </div>
                 </div>
@@ -237,9 +238,7 @@ export const columns: ColumnDef<TopUpHistory>[] = [
             );
         },
         cell: ({ row }) => {
-            const created_at = row.original.created_at;
-            const date = new Date(created_at);
-            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{moment(row.original.created_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {
@@ -252,9 +251,7 @@ export const columns: ColumnDef<TopUpHistory>[] = [
             );
         },
         cell: ({ row }) => {
-            const updated_at = row.original.updated_at;
-            const date = new Date(updated_at);
-            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{moment(row.original.updated_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {

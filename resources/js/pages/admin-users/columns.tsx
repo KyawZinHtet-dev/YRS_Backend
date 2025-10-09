@@ -29,6 +29,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { cn } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
+import moment from 'moment';
 import { useState } from 'react';
 import AdminUserForm from './admin-user-form';
 
@@ -170,9 +171,7 @@ export const columns: ColumnDef<AdminUser>[] = [
             );
         },
         cell: ({ row }) => {
-            const created_at = row.original.created_at;
-            const date = new Date(created_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="text-center">{moment(row.original.created_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {
@@ -185,9 +184,7 @@ export const columns: ColumnDef<AdminUser>[] = [
             );
         },
         cell: ({ row }) => {
-            const updated_at = row.original.updated_at;
-            const date = new Date(updated_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="text-center">{moment(row.original.updated_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {
