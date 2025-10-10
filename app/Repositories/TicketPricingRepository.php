@@ -61,4 +61,9 @@ class TicketPricingRepository implements BaseRepository
         $ticket_pricing->delete();
         return $ticket_pricing;
     }
+
+    public function queryByDateTime($date_time)
+    {
+        return $this->model->where('started_at', '<=', $date_time)->where('ended_at', '>=', $date_time);
+    }
 }
