@@ -44,13 +44,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'user_api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
         'admin_user' => [
             'driver' => 'session',
             'provider' => 'admin_users',
         ],
-        'user_api' => [
-            'driver' => 'sanctum',
-            'provider' => 'users',
+        'ticket_inspector' => [
+            'driver' => 'session',
+            'provider' => 'ticket_inspectors',
         ],
         'ticket_inspector_api' => [
             'driver' => 'sanctum',
@@ -120,6 +124,12 @@ return [
         ],
         'admin_users' => [
             'provider' => 'admin_users',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'ticket_inspectors' => [
+            'provider' => 'ticket_inspectors',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
