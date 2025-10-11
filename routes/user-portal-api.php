@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\UserPortal\AuthController;
 use App\Http\Controllers\Api\UserPortal\TopUpController;
 use App\Http\Controllers\Api\UserPortal\TicketController;
 use App\Http\Controllers\Api\UserPortal\ProfileController;
+use App\Http\Controllers\Api\UserPortal\BuyTicketController;
 use App\Http\Controllers\Api\UserPortal\TopUpHistoryController;
 use App\Http\Controllers\Api\UserPortal\TicketPricingController;
 use App\Http\Controllers\Api\UserPortal\WalletTransactionController;
@@ -30,10 +31,13 @@ Route::middleware(['auth:user_api', 'verified'])->group(function () {
     // Top Up
     Route::post('top-up', [TopUpController::class, 'store']);
 
+    // Ticket Pricing
+    Route::get('ticket-pricings', [TicketPricingController::class, 'index']);
+
+    // Buy Ticket
+    Route::post('buy-ticket', [BuyTicketController::class, 'store']);
+
     // Ticket
     Route::get('tickets', [TicketController::class, 'index']);
     Route::get('tickets/{ticket_number}', [TicketController::class, 'show']);
-
-    // Ticket Pricing
-    Route::get('ticket-pricings', [TicketPricingController::class, 'index']);
 });

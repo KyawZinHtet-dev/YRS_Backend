@@ -20,6 +20,7 @@ class TicketPricingController extends Controller
             if ($filtered_ticket_pricings->count()) {
                 if ($type == 'one_time_ticket') {
                     $pricings[] = [
+                        'type' => $type,
                         'title' => 'One Time Ticket',
                         'description' => 'One Time Ticket is valid for one day and can be used only once. It will be expired after the day you purchased and cannot be used again.',
                         'price' => implode(', ', collect($filtered_ticket_pricings)->map(function ($filtered_ticket_pricing) {
@@ -28,6 +29,7 @@ class TicketPricingController extends Controller
                     ];
                 } elseif ($type == 'one_month_ticket') {
                     $pricings[] = [
+                        'type' => $type,
                         'title' => 'One Month Ticket',
                         'description' => 'One Month Ticket is valid for one month and can be used unlimited times. It will be expired after the month you purchased.',
                         'price' => implode(', ', collect($filtered_ticket_pricings)->map(function ($filtered_ticket_pricing) {

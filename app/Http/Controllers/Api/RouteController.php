@@ -26,8 +26,8 @@ class RouteController extends Controller
                 });
             })
             ->when($request->has('origin_station_slug') && $request->has('destination_station_slug'), function ($q) use ($request) {
-                $origin_station = Station::where('slug', $request->origin_station_slug)->first();
-                $destination_station = Station::where('slug', $request->destination_station_slug)->first();
+                $origin_station = Station::where('slug', $request->origin_station_slug)->firstOrFail();
+                $destination_station = Station::where('slug', $request->destination_station_slug)->firstOrFail();
 
                 $route_ids = RouteStation::select('rs1.route_id')
                     ->from('route_stations as rs1')
