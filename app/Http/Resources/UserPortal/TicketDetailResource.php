@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\UserPortal;
 
+use App\Repositories\QRRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,6 +17,7 @@ class TicketDetailResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'qr' => (new QRRepository)->generate($this->ticket_number)->token,
             'ticket_number' => $this->ticket_number,
             'type' => $this->acsr_type,
             'direction' => $this->acsr_direction,

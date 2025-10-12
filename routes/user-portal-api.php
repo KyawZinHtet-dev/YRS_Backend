@@ -40,4 +40,7 @@ Route::middleware(['auth:user_api', 'verified'])->group(function () {
     // Ticket
     Route::get('tickets', [TicketController::class, 'index']);
     Route::get('tickets/{ticket_number}', [TicketController::class, 'show']);
+
+    // QR
+    Route::post('regenerate-qr', [TicketController::class, 'regenerateQR']);
 });
