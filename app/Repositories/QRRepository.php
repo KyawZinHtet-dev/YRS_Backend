@@ -4,8 +4,6 @@ namespace App\Repositories;
 
 use App\Models\QR;
 use Illuminate\Support\Str;
-use App\Notifications\TwoStepVerification;
-use Illuminate\Support\Facades\Notification;
 use App\Repositories\Contracts\BaseRepository;
 
 class QRRepository implements BaseRepository
@@ -25,6 +23,11 @@ class QRRepository implements BaseRepository
     public function find($id)
     {
         return $this->model->find($id);
+    }
+
+    public function findByToken($token)
+    {
+        return $this->model->where('token', $token);
     }
 
     public function create(array $data)

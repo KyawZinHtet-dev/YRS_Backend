@@ -42,6 +42,11 @@ class TicketRepository implements BaseRepository
         return $this->model->find($id);
     }
 
+    public function findByTicketNumber($ticket_number)
+    {
+        return $this->model->where('ticket_number', $ticket_number);
+    }
+
     public function create(array $data)
     {
         return $this->model->create($data);
