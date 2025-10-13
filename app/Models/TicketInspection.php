@@ -11,4 +11,14 @@ class TicketInspection extends Model
         'ticket_inspector_id',
         'route_id',
     ];
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class, 'ticket_id', 'id');
+    }
+
+    public function route()
+    {
+        return $this->belongsTo(Route::class, 'route_id', 'id');
+    }
 }

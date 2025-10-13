@@ -19,6 +19,11 @@ class TicketInspectionRepository implements BaseRepository
         return $this->model->orderBy('updated_at', 'desc')->get();
     }
 
+    public function queryByTicketInspector($ticket_inspector)
+    {
+        return $this->model->where('ticket_inspector_id', $ticket_inspector->id);
+    }
+
     public function find($id)
     {
         return $this->model->find($id);
