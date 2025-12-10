@@ -25,9 +25,9 @@ const LeafletMap = ({
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {data.length > 1 ? (
-                    data.map((d) => (
+                    data.map((d, i) => (
                         <LocationMarker
-                            key={d.title}
+                            key={i}
                             time={moment(d.time, 'HH:mm').toDate()}
                             title={d.title}
                             setLatLngPosition={setLatLngPosition}

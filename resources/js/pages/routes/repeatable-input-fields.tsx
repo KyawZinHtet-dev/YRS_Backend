@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 const RepeatableInputFields = ({
     scheduleSubmitted,
     handleRemove,
-    initialAmoutOfFields,
     index,
     station_title,
     station_id,
@@ -79,16 +78,15 @@ const RepeatableInputFields = ({
                 <Label>Time</Label>
                 <TimePicker date={selectedTime} onChange={setSelectedTime} />
             </div>
-            {initialAmoutOfFields > 1 && index! > 0 && (
-                <Button
-                    variant="outline"
-                    size={'sm'}
-                    className="text-destructive-foreground hover:text-destructive-foreground absolute top-[-0.5rem] right-[-0.5rem]"
-                    onClick={handleRemove}
-                >
-                    <X className="h-4 w-4" />
-                </Button>
-            )}
+            <Button
+                type="button"
+                variant="outline"
+                size={'sm'}
+                className="text-destructive-foreground hover:text-destructive-foreground absolute top-[-0.5rem] right-[-0.5rem]"
+                onClick={handleRemove}
+            >
+                <X className="h-4 w-4" />
+            </Button>
         </motion.div>
     );
 };
