@@ -25,6 +25,13 @@ class RouteController extends Controller
                     return $q->where('title', 'like', '%' . $request->search . '%');
                 });
             })
+            ->when($request->has('direction'), function ($q) use ($request) {
+                if ($request->direction) {
+                    $q->where(function ($q) use ($request) {
+                        return $q->where('direction', 'like', $request->direction);
+                    });
+                }
+            })
             ->when($request->has('origin_station_slug') && $request->has('destination_station_slug'), function ($q) use ($request) {
                 $origin_station = Station::where('slug', $request->origin_station_slug)->firstOrFail();
                 $destination_station = Station::where('slug', $request->destination_station_slug)->firstOrFail();
@@ -42,7 +49,7 @@ class RouteController extends Controller
 
                 $q->whereIn('id', $route_ids);
             })
-            ->paginate(10);
+            ->paginate(10)->appends($request->all());
         return RouteResource::collection($routes)->additional([
             'message' => 'success',
         ]);
