@@ -1,6 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { DataTableColumnHeader } from '@/components/datatable/column-header';
+import moment from 'moment';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -69,9 +70,7 @@ export const columns: ColumnDef<Wallet>[] = [
             );
         },
         cell: ({ row }) => {
-            const created_at = row.original.created_at;
-            const date = new Date(created_at);
-            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{moment(row.original.created_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {
@@ -84,9 +83,7 @@ export const columns: ColumnDef<Wallet>[] = [
             );
         },
         cell: ({ row }) => {
-            const updated_at = row.original.updated_at;
-            const date = new Date(updated_at);
-            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{moment(row.original.updated_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
 ];

@@ -30,13 +30,34 @@ class TicketRepository implements BaseRepository
             ->paginate($request->has('paginate') ? $request->paginate : 5)->appends($request->all());
     }
 
+    public function queryByUser($user)
+    {
+        return $this->model->where('user_id', $user->id);
+    }
+
     public function all() {}
 
-    public function find($id) {}
+    public function find($id)
+    {
+        return $this->model->find($id);
+    }
 
-    public function create(array $data) {}
+    public function findByTicketNumber($ticket_number)
+    {
+        return $this->model->where('ticket_number', $ticket_number);
+    }
 
-    public function update($id, array $data) {}
+    public function create(array $data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function update($id, array $data)
+    {
+        $ticket = $this->find($id);
+        $ticket->update($data);
+        return $ticket;
+    }
 
     public function delete($id) {}
 }

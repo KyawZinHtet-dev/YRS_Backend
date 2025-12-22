@@ -28,6 +28,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { cn } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
+import moment from 'moment';
 import { useState } from 'react';
 import TicketPricingForm from './ticket-pricing-form';
 
@@ -37,6 +38,7 @@ export type TicketPricing = {
     id: number;
     type: string;
     price: string;
+    direction: string;
     offer_quantity: string;
     remain_quantity: string;
     started_at: string;
@@ -116,13 +118,13 @@ export const columns: ColumnDef<TicketPricing>[] = [
         header: ({ column }) => {
             return (
                 <div className="ml-3">
-                    <DataTableColumnHeader column={column} routePath="ticket-pricing.index" title="Type" />
+                    <DataTableColumnHeader column={column} routePath="ticket-pricings.index" title="Type" />
                 </div>
             );
         },
         cell: ({ row }) => {
             return (
-                <div className={cn('ml-3 capitalize', row.original.type === 'one_time_ticket' ? 'text-sky-600' : 'text-amber-600')}>
+                <div className={cn('ml-3 capitalize', row.original.type === 'one_time_ticket' ? 'text-primary' : 'text-amber-600')}>
                     {row.original.type.replaceAll('_', ' ')}
                 </div>
             );
@@ -133,7 +135,7 @@ export const columns: ColumnDef<TicketPricing>[] = [
         header: ({ column }) => {
             return (
                 <div className="flex items-center justify-center">
-                    <DataTableColumnHeader routePath="ticket-pricing.index" column={column} title="Price" />
+                    <DataTableColumnHeader routePath="ticket-pricings.index" column={column} title="Price" />
                 </div>
             );
         },
@@ -144,6 +146,30 @@ export const columns: ColumnDef<TicketPricing>[] = [
                 currency: 'MMK',
             });
             return <div className="text-center">{formattedCurrency}</div>;
+        },
+    },
+    {
+        accessorKey: 'direction',
+        header: ({ column }) => {
+            return (
+                <div className="ml-3">
+                    <DataTableColumnHeader routePath="ticket-pricings.index" column={column} title="Direction" />
+                </div>
+            );
+        },
+        cell: ({ row }) => {
+            return (
+                <div
+                    className={cn(
+                        'ml-3 capitalize',
+                        row.original.direction === 'clockwise' && 'text-green-500',
+                        row.original.direction === 'anticlockwise' && 'text-red-500',
+                        row.original.direction === 'both' && 'text-amber-500',
+                    )}
+                >
+                    {row.original.direction}
+                </div>
+            );
         },
     },
     {
@@ -182,9 +208,7 @@ export const columns: ColumnDef<TicketPricing>[] = [
             );
         },
         cell: ({ row }) => {
-            const started_at = row.original.started_at;
-            const date = new Date(started_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="text-center">{moment(row.original.started_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {
@@ -197,9 +221,7 @@ export const columns: ColumnDef<TicketPricing>[] = [
             );
         },
         cell: ({ row }) => {
-            const ended_at = row.original.ended_at;
-            const date = new Date(ended_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="text-center">{moment(row.original.ended_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {
@@ -212,9 +234,7 @@ export const columns: ColumnDef<TicketPricing>[] = [
             );
         },
         cell: ({ row }) => {
-            const created_at = row.original.created_at;
-            const date = new Date(created_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="text-center">{moment(row.original.created_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {
@@ -227,9 +247,7 @@ export const columns: ColumnDef<TicketPricing>[] = [
             );
         },
         cell: ({ row }) => {
-            const updated_at = row.original.updated_at;
-            const date = new Date(updated_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="text-center">{moment(row.original.updated_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {

@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { DialogDescription } from '@radix-ui/react-dialog';
 import { Minus, Plus } from 'lucide-react';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -19,7 +20,7 @@ export type WalletTransaction = {
     wallet_id: number;
     amount: number;
     description: string;
-    type: 'Manual' | 'Top Up' | 'Buy Ticket';
+    type: 'manual' | 'top_up' | 'buy_ticket';
     method: 'add' | 'reduce';
     sourceable_id: number;
     sourceable_type: string;
@@ -82,14 +83,14 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                                     <Badge
                                         className={cn(
                                             {
-                                                'bg-sky-500 dark:bg-sky-600': data.type === 'Manual',
-                                                'bg-purple-500 dark:bg-purple-600': data.type === 'Top Up',
-                                                'bg-amber-500 dark:bg-amber-600': data.type === 'Buy Ticket',
+                                                'bg-sky-500 dark:bg-sky-600': data.type === 'manual',
+                                                'bg-purple-500 dark:bg-purple-600': data.type === 'top_up',
+                                                'bg-amber-500 dark:bg-amber-600': data.type === 'buy_ticket',
                                             },
-                                            'w-[80px]',
+                                            'w-[100px] capitalize',
                                         )}
                                     >
-                                        {data.type}
+                                        {data.type.replace('_', ' ')}
                                     </Badge>
                                 ) : (
                                     <p className="text-sm">{data.user_email}</p>
@@ -103,14 +104,14 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                                     <Badge
                                         className={cn(
                                             {
-                                                'bg-sky-500 dark:bg-sky-600': data.type === 'Manual',
-                                                'bg-purple-500 dark:bg-purple-600': data.type === 'Top Up',
-                                                'bg-amber-500 dark:bg-amber-600': data.type === 'Buy Ticket',
+                                                'bg-sky-500 dark:bg-sky-600': data.type === 'manual',
+                                                'bg-purple-500 dark:bg-purple-600': data.type === 'top_up',
+                                                'bg-amber-500 dark:bg-amber-600': data.type === 'buy_ticket',
                                             },
-                                            'w-[80px]',
+                                            'w-[100px] capitalize',
                                         )}
                                     >
-                                        {data.type}
+                                        {data.type.replace('_', ' ')}
                                     </Badge>
                                 )}
                             </div>
@@ -119,19 +120,19 @@ const ViewDetailDialog = ({ data }: { data: WalletTransaction }) => {
                                 <Badge
                                     className={cn(
                                         {
-                                            'bg-sky-500 dark:bg-sky-600': data.type === 'Manual',
-                                            'bg-purple-500 dark:bg-purple-600': data.type === 'Top Up',
-                                            'bg-amber-500 dark:bg-amber-600': data.type === 'Buy Ticket',
+                                            'bg-sky-500 dark:bg-sky-600': data.type === 'manual',
+                                            'bg-purple-500 dark:bg-purple-600': data.type === 'top_up',
+                                            'bg-amber-500 dark:bg-amber-600': data.type === 'buy_ticket',
                                         },
-                                        'w-[80px]',
+                                        'w-[100px] capitalize',
                                     )}
                                 >
-                                    {data.type}
+                                    {data.type.replace('_', ' ')}
                                 </Badge>
                             </div>
                             <div className="flex items-center justify-between">
                                 <p className="font-medium">Date:</p>
-                                <p className="text-sm capitalize">{new Date(data.created_at).toLocaleString()}</p>
+                                <p className="text-sm capitalize">{moment(data.created_at).format('DD/MM/YYYY hh:mm A')}</p>
                             </div>
                             <div className="flex items-center justify-between">
                                 <p className="font-medium">Description:</p>
@@ -205,14 +206,14 @@ export const columns: ColumnDef<WalletTransaction>[] = [
                     <Badge
                         className={cn(
                             {
-                                'bg-sky-500 dark:bg-sky-600': row.original.type === 'Manual',
-                                'bg-purple-500 dark:bg-purple-600': row.original.type === 'Top Up',
-                                'bg-amber-500 dark:bg-amber-600': row.original.type === 'Buy Ticket',
+                                'bg-sky-500 dark:bg-sky-600': row.original.type === 'manual',
+                                'bg-purple-500 dark:bg-purple-600': row.original.type === 'top_up',
+                                'bg-amber-500 dark:bg-amber-600': row.original.type === 'buy_ticket',
                             },
-                            'w-[80px] text-center',
+                            'w-full text-center capitalize',
                         )}
                     >
-                        {row.original.type}
+                        {row.original.type.replace('_', ' ')}
                     </Badge>
                 </div>
             );
@@ -255,9 +256,7 @@ export const columns: ColumnDef<WalletTransaction>[] = [
             );
         },
         cell: ({ row }) => {
-            const created_at = row.original.created_at;
-            const date = new Date(created_at);
-            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{moment(row.original.created_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {
@@ -270,9 +269,7 @@ export const columns: ColumnDef<WalletTransaction>[] = [
             );
         },
         cell: ({ row }) => {
-            const updated_at = row.original.updated_at;
-            const date = new Date(updated_at);
-            return <div className="my-1.5 text-center">{date.toLocaleString()}</div>;
+            return <div className="my-1.5 text-center">{moment(row.original.updated_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {

@@ -33,6 +33,7 @@ import { useForm } from '@inertiajs/react';
 import { LatLng } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { LoaderCircle } from 'lucide-react';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import RouteForm from './route-form';
 
@@ -171,11 +172,11 @@ function ActionDroupdownMenu({ data }: { data: Route }) {
                                 <div className="mt-3 grid lg:grid-cols-2 lg:gap-x-20">
                                     <div className="flex items-center justify-between">
                                         <p className="font-medium">Created At:</p>
-                                        <p className="text-sm">{new Date(railway_route.created_at).toLocaleString()}</p>
+                                        <p className="text-sm">{moment(data.created_at).format('DD/MM/YYYY hh:mm A')}</p>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <p className="font-medium">Updated At:</p>
-                                        <p className="text-sm">{new Date(railway_route.updated_at).toLocaleString()}</p>
+                                        <p className="text-sm">{moment(data.updated_at).format('DD/MM/YYYY hh:mm A')}</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -274,9 +275,7 @@ export const columns: ColumnDef<Route>[] = [
             );
         },
         cell: ({ row }) => {
-            const created_at = row.original.created_at;
-            const date = new Date(created_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="text-center">{moment(row.original.created_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {
@@ -289,9 +288,7 @@ export const columns: ColumnDef<Route>[] = [
             );
         },
         cell: ({ row }) => {
-            const updated_at = row.original.updated_at;
-            const date = new Date(updated_at);
-            return <div className="text-center">{date.toLocaleString()}</div>;
+            return <div className="text-center">{moment(row.original.updated_at).format('DD/MM/YYYY hh:mm A')}</div>;
         },
     },
     {

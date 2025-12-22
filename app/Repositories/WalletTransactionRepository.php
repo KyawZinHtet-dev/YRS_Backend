@@ -42,4 +42,9 @@ class WalletTransactionRepository implements BaseRepository
     public function update($id, array $data) {}
 
     public function delete($id) {}
+
+    public function queryByUser($user)
+    {
+        return $this->model->where('user_id', $user->id);
+    }
 }

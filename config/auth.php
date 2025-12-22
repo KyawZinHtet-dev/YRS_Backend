@@ -44,9 +44,21 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'user_api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
         'admin_user' => [
             'driver' => 'session',
             'provider' => 'admin_users',
+        ],
+        'ticket_inspector' => [
+            'driver' => 'session',
+            'provider' => 'ticket_inspectors',
+        ],
+        'ticket_inspector_api' => [
+            'driver' => 'sanctum',
+            'provider' => 'ticket_inspectors',
         ],
     ],
 
@@ -76,6 +88,11 @@ return [
         'admin_users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\AdminUser::class),
+        ],
+
+        'ticket_inspectors' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\TicketInspector::class),
         ],
     ],
 
@@ -107,6 +124,12 @@ return [
         ],
         'admin_users' => [
             'provider' => 'admin_users',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'ticket_inspectors' => [
+            'provider' => 'ticket_inspectors',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

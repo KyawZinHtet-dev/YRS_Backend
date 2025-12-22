@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ticket_pricings', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['one_time_ticket', 'one_month_ticket']);
+            $table->enum('direction', ['clockwise', 'anticlockwise', 'both']);
             $table->integer('price');
             $table->integer('offer_quantity');
             $table->integer('remain_quantity');

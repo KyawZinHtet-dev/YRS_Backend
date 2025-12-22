@@ -42,6 +42,11 @@ class TicketInspectorRepository implements BaseRepository
         return $this->model->find($id);
     }
 
+    public function findByEmail($email)
+    {
+        return $this->model->where('email', $email)->first();
+    }
+
     public function create(array $data)
     {
         return $this->model->create($data);
@@ -53,7 +58,7 @@ class TicketInspectorRepository implements BaseRepository
         $ticket_inspector->update([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => $data['password'] ? Hash::make($data['password']) : $ticket_inspector->password,
+            'password' => $data['password'] ? $data['password'] : $ticket_inspector->password,
             'updated_at' => now(),
         ]);
         return $ticket_inspector;

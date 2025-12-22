@@ -66,4 +66,14 @@ class StationRepository implements BaseRepository
         $station->delete();
         return $station;
     }
+
+    public function query()
+    {
+        return $this->model->query();
+    }
+
+    public function queryBySlug($slug)
+    {
+        return $this->model->where('slug', $slug);
+    }
 }

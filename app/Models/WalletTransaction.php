@@ -19,38 +19,115 @@ class WalletTransaction extends Model
         'method',
     ];
 
-    protected function type(): Attribute
+    protected function acsrMethod(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                switch ($attributes['method']) {
+                    case 'add':
+                        $text = 'Add';
+                        $sign = '+';
+                        $color = 'bg-green-500 dark:bg-green-600';
+                        break;
+                    case 'reduce':
+                        $text = 'Reduce';
+                        $sign = '-';
+                        $color = 'bg-rose-500 dark:bg-rose-600';
+                        break;
+                    default:
+                        $text = '';
+                        $sign = '';
+                        $color = '';
+                        break;
+                }
+                return [
+                    'text' => $text,
+                    'sign' => $sign,
+                    'color' => $color
+                ];
+            },
+        );
+    }
+
+    protected function acsrType(): Attribute
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
                 switch ($attributes['type']) {
                     case 'manual':
-                        $value = 'Manual';
+                        $text = 'Manual';
+                        $color = 'bg-sky-500 dark:bg-sky-600';
+                        $icon = asset('storage/images/transaction.png');
                         break;
                     case 'top_up':
-                        $value = 'Top Up';
+                        $text = 'Top Up';
+                        $color = 'bg-purple-500 dark:bg-purple-600';
+                        $icon = asset('storage/images/top-up.png');
                         break;
                     case 'buy_ticket':
-                        $value = 'Buy Ticket';
+                        $text = 'Buy Ticket';
+                        $color = 'bg-amber-500 dark:bg-amber-600';
+                        $icon = asset('storage/images/buy-ticket.png');
                         break;
                     default:
-                        $value = $attributes['type'];
+                        $text = '';
+                        $color = '';
+                        $icon = '';
+                        break;
                 }
-
-                return $value;
-            }
+                return [
+                    'text' => $text,
+                    'color' => $color,
+                    'icon' => $icon
+                ];
+            },
         );
     }
 
-    // public function wallet()
-    // {
-    //     return $this->belongsTo(Wallet::class);
-    // }
+    protected function acsrFrom(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                switch ($attributes['method']) {
+                    case 'add':
+                        $from = $this->acsr_type['text'];
+                        break;
+                    case 'reduce':
+                        $from = $this->user->name;
+                        break;
+                    default:
+                        $from = '';
+                        break;
+                }
+                return $from;
+            },
+        );
+    }
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    protected function acsrTo(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                switch ($attributes['method']) {
+                    case 'add':
+                        $to = $this->user->name;
+                        break;
+                    case 'reduce':
+                        $to = $this->acsr_type['text'];
+                        break;
+                    default:
+                        $to = '';
+                        break;
+                }
+                return $to;
+            },
+        );
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function sourceable()
     {

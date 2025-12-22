@@ -24,6 +24,7 @@ class TicketPricingStoreRequest extends FormRequest
         return [
             'type' => 'required',
             'price' => 'required',
+            'direction' => 'required',
             'offer_quantity' => 'required',
             'period' => 'required',
             'period.started_at' => 'required',
