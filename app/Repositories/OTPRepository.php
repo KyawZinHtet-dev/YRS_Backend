@@ -83,7 +83,7 @@ class OTPRepository implements BaseRepository
             throw new \Exception('The given data is invalid');
         }
         if ($otp->expired_at > date('Y-m-d H:i:s')) {
-            throw new \Exception('The OTP Code is already sent. This code will expire in ' . now()->diff($otp->expired_at)->format('%i minutes %s seconds'));
+            throw new \Exception('The Verification Code is already sent. This code will expire in ' . now()->diff($otp->expired_at)->format('%i minutes %s seconds'));
         }
         $otp->delete();
         $otp = $this->create([
@@ -105,10 +105,10 @@ class OTPRepository implements BaseRepository
             throw new \Exception('The given data is invalid');
         }
         if ($otp->expired_at < date('Y-m-d H:i:s')) {
-            throw new \Exception('The OTP is expired');
+            throw new \Exception('The Verification Code is expired');
         }
         if ($otp->otp_code != $otp_code) {
-            throw new \Exception('The OTP Code is incorrect');
+            throw new \Exception('The Verification Code is incorrect');
         }
         $this->delete($otp->id);
     }

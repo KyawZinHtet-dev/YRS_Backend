@@ -49,7 +49,7 @@ class Authcontroller extends Controller
             'otp_code' => 'required',
         ], [
             'otp_token.required' => 'The OTP Token is required',
-            'otp_code.required' => 'The OTP Code is required',
+            'otp_code.required' => 'The Verification Code is required',
         ]);
         DB::beginTransaction();
         try {
@@ -65,7 +65,7 @@ class Authcontroller extends Controller
                 'access_token' => $user->createToken($user->email)->plainTextToken
             ];
             DB::commit();
-            return ResponseService::success(data: $response, message: 'Successfully Logged In');
+            return ResponseService::success(data: $response, message: 'Verification Success');
         } catch (\Exception $e) {
             DB::rollBack();
             return ResponseService::fail(message: $e->getMessage());
@@ -84,7 +84,7 @@ class Authcontroller extends Controller
             $response = [
                 'otp_token' => $otp->otp_token
             ];
-            return ResponseService::success(data: $response, message: 'Successfully Resend OTP');
+            return ResponseService::success(data: $response, message: 'Successfully Resend Verification Code');
         } catch (\Exception $e) {
             DB::rollBack();
             return ResponseService::fail(message: $e->getMessage());
@@ -118,7 +118,7 @@ class Authcontroller extends Controller
             }
 
             DB::commit();
-            return ResponseService::success(data: $response, message: 'Successfully Logged In');
+            return ResponseService::success(data: $response, message: $response['is_verified'] ? 'Successfully Logged In' : 'Account Not Verified. Please Verify Your Account');
         } catch (\Exception $e) {
             DB::rollBack();
             return ResponseService::fail(message: $e->getMessage());
