@@ -12,12 +12,18 @@ use Illuminate\Support\Facades\DB;
 
 class TicketInspectionController extends Controller
 {
-    public function index()
+     public function index(Request $request)
     {
         $ticket_inspections = (new TicketInspectionRepository)
             ->queryByTicketInspector(auth('ticket_inspector_api')
                 ->user())
+            ->orderBy('created_at', 'desc')
             ->with(['ticket:id,ticket_number,type', 'route:id,title'])
+            ->when($request->search, function ($query) use ($request) {
+                $query->whereHas('ticket', function ($query) use ($request) {
+                    $query->where('ticket_number', 'like', '%' . $request->search . '%');
+                });
+            })
             ->paginate(10);
 
         return TicketInspectionResource::collection($ticket_inspections)->additional([
