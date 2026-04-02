@@ -19,6 +19,7 @@ class TicketResource extends JsonResource
             'ticket_number' => $this->ticket_number,
             'type' => $this->acsr_type,
             'direction' => $this->acsr_direction,
+             'is_expired' => Carbon::parse($this->expired_at)->isPast(),
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
         ];
     }
