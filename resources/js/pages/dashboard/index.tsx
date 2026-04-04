@@ -80,12 +80,12 @@ export default function Dashboard() {
             setLoading(true);
             try {
                 const summaryParams = {
-                    month: selectedMonth !== 'all' ? selectedMonth : null,
+                    month: selectedMonth,
                     year: selectedYear,
                 };
 
                 const monthlyParams = {
-                    month: selectedMonth !== 'all' ? selectedMonth : null,
+                    month: selectedMonth,
                     year: selectedYear,
                 };
 
