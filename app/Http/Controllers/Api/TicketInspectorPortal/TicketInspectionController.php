@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class TicketInspectionController extends Controller
 {
-     public function index(Request $request)
+    public function index(Request $request)
     {
         $ticket_inspections = (new TicketInspectionRepository)
             ->queryByTicketInspector(auth('ticket_inspector_api')
