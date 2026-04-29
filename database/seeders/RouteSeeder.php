@@ -18,7 +18,7 @@ class RouteSeeder extends Seeder
      */
     public function run(): void
     {
-        $default_routes = json_decode(file_get_contents(asset('json/route.json')));
+        $default_routes = json_decode(file_get_contents(public_path('json/route.json')));
         foreach ($default_routes as $default_route) {
             $schedules = [];
             $time = $default_route->departure_time;
