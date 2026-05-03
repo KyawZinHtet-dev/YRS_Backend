@@ -9,7 +9,6 @@ use function Illuminate\Log\log;
 use Illuminate\Support\Facades\DB;
 
 use App\Repositories\RouteRepository;
-use App\Repositories\StationRepository;
 
 class RouteSeeder extends Seeder
 {

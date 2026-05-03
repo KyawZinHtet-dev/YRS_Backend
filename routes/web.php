@@ -12,6 +12,7 @@ use App\Http\Controllers\TopUpHistoryController;
 use App\Http\Controllers\TicketInspectorController;
 use App\Http\Controllers\TicketPricingController;
 use App\Http\Controllers\WalletTransactionController;
+use App\Http\Controllers\DashboardController;
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
@@ -19,10 +20,10 @@ require __DIR__ . '/auth.php';
 
 Route::middleware(['auth:admin_user', 'verified'])->group(function () {
     Route::get('/', function () {
-        return Inertia::render('dashboard');
+        return Inertia::render('dashboard/index');
     })->name('home');
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        return Inertia::render('dashboard/index');
     })->name('dashboard');
 
     Route::resource('admin-users', AdminUserController::class)->only(['index', 'store', 'update', 'destroy']);
@@ -44,8 +45,8 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
     Route::resource('wallet-transactions', WalletTransactionController::class)->only(['index']);
 
     Route::resource('top-up-history', TopUpHistoryController::class)->only(['index']);
-    Route::post('top-up-history/${id}/approve', [TopUpHistoryController::class, 'approve'])->name('top-up-history.approve');
-    Route::post('top-up-history/${id}/reject', [TopUpHistoryController::class, 'reject'])->name('top-up-history.reject');
+    Route::post('top-up-history/{id}/approve', [TopUpHistoryController::class, 'approve'])->name('top-up-history.approve');
+    Route::post('top-up-history/{id}/reject', [TopUpHistoryController::class, 'reject'])->name('top-up-history.reject');
 
     Route::resource('stations', StationController::class)->only(['index', 'store', 'update', 'destroy']);
 
@@ -55,4 +56,9 @@ Route::middleware(['auth:admin_user', 'verified'])->group(function () {
     Route::resource('ticket-pricings', TicketPricingController::class)->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('tickets', TicketController::class)->only(['index']);
+
+    // Dashboard API Routes
+    Route::get('api/dashboard/summary', [DashboardController::class, 'getSummaryStats']);
+    Route::get('api/dashboard/monthly', [DashboardController::class, 'getMonthlyData']);
+    Route::get('api/dashboard/filter', [DashboardController::class, 'getFilteredData']);
 });
