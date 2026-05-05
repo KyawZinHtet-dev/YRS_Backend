@@ -182,9 +182,9 @@ class DashboardController extends Controller
         // 3. Revenue Details (Manual, Top Up, Buy Ticket)
         $revenues = WalletTransaction::select(
                 DB::raw($isFilteringByMonth ? 'DAY(created_at) as period' : 'MONTH(created_at) as period'),
-                DB::raw('SUM(CASE WHEN type = "manual" AND method = "add" THEN amount ELSE 0 END) as manual'),
-                DB::raw('SUM(CASE WHEN type = "top_up" AND method = "add" THEN amount ELSE 0 END) as top_up'),
-                DB::raw('SUM(CASE WHEN type = "buy_ticket" AND method = "reduce" THEN amount ELSE 0 END) as buy_ticket')
+                DB::raw('SUM(CASE WHEN type = "manual" AND method = "add" THEN amount ELSE 0 END) as `manual`'),
+                DB::raw('SUM(CASE WHEN type = "top_up" AND method = "add" THEN amount ELSE 0 END) as `top_up`'),
+                DB::raw('SUM(CASE WHEN type = "buy_ticket" AND method = "reduce" THEN amount ELSE 0 END) as `buy_ticket`')
             )
             ->whereYear('created_at', $year)
             ->when($isFilteringByMonth, fn($q) => $q->whereMonth('created_at', $month))
