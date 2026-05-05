@@ -71,9 +71,17 @@ export function Combobox({ getSelectedValue, formSubmitted, title, comboboxOptio
 
     const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
         const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
-        if (scrollTop + clientHeight >= scrollHeight * 1) {
+        if (scrollTop + clientHeight >= scrollHeight * 0.9) {
             getMoreOptions();
         }
+        event.stopPropagation();
+    };
+
+    const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        event.preventDefault();
+        const element = event.currentTarget;
+        element.scrollTop += event.deltaY;
     };
 
     React.useEffect(() => {
@@ -98,7 +106,7 @@ export function Combobox({ getSelectedValue, formSubmitted, title, comboboxOptio
                     <CommandInput value={searchValue} onValueChange={setSearchValue} placeholder={`Search ${title} by ${comboboxOption} ...`} />
                     <CommandList>
                         <CommandEmpty>No results found.</CommandEmpty>
-                        <CommandGroup onScroll={handleScroll} className="max-h-[140px] overflow-y-auto">
+                        <CommandGroup onScroll={handleScroll} onWheel={handleWheel} className="max-h-[140px] overflow-y-auto">
                             {options?.data?.map((option, index) => (
                                 <CommandItem
                                     key={index}
