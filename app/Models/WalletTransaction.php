@@ -57,17 +57,17 @@ class WalletTransaction extends Model
                     case 'manual':
                         $text = 'Manual';
                         $color = 'bg-sky-500 dark:bg-sky-600';
-                        $icon = asset('storage/images/transaction.png');
+                        $icon = asset('images/transaction.png');
                         break;
                     case 'top_up':
                         $text = 'Top Up';
                         $color = 'bg-purple-500 dark:bg-purple-600';
-                        $icon = asset('storage/images/top-up.png');
+                        $icon = asset('images/top-up.png');
                         break;
                     case 'buy_ticket':
                         $text = 'Buy Ticket';
                         $color = 'bg-amber-500 dark:bg-amber-600';
-                        $icon = asset('storage/images/buy-ticket.png');
+                        $icon = asset('images/buy-ticket.png');
                         break;
                     default:
                         $text = '';

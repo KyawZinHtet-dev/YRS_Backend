@@ -24,7 +24,7 @@ class RouteResource extends JsonResource
             'title' => $this->title,
             'direction' => $this->acsr_direction,
             'text' => $origin_station->title . ' (' . Carbon::parse($origin_station->pivot->time)->format('h:i A') . ')' . ' - ' . $destination_station->title . ' (' . Carbon::parse($destination_station->pivot->time)->format('h:i A') . ')',
-            'icon' => asset('storage/images/route.png'),
+            'icon' => asset('images/route.png'),
         ];
     }
 }

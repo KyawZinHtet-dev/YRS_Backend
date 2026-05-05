@@ -18,7 +18,7 @@ class TicketInspectionResource extends JsonResource
         return [
             'id' => $this->id,
             'ticket_number' => $this->ticket->ticket_number ?? '-',
-            'icon' => $this->ticket ? $this->ticket->acsr_type['icon'] : asset('storage/images/ticket.png'),
+            'icon' => $this->ticket ? $this->ticket->acsr_type['icon'] : asset('images/ticket.png'),
             'route_title' => $this->route->title ?? '-',
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
         ];
