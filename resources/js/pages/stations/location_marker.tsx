@@ -24,7 +24,7 @@ function LocationMarker({
     });
 
     return latLngPosition === null ? null : (
-        <Marker position={latLngPosition} icon={icon({ iconSize: [45, 45], iconAnchor: [22, 45], iconUrl: '/storage/images/station-marker.png' })}>
+        <Marker position={latLngPosition} icon={icon({ iconSize: [45, 45], iconAnchor: [22, 45], iconUrl: '/images/station-marker.png' })}>
             {title && tooltip && (
                 <Tooltip sticky>
                     <div className="flex flex-col items-center justify-center">

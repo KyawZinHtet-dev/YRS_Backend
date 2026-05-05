@@ -21,7 +21,7 @@ class StationResource extends JsonResource
             'description' => Str::limit($this->description, 50),
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'icon' => asset('storage/images/station.png'),
+            'icon' => asset('images/station.png'),
         ];
     }
 }
